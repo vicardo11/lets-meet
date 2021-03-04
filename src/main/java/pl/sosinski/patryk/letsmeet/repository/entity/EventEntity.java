@@ -5,15 +5,13 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "events")
+@Table(name = "EVENTS")
 public class EventEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
     @ManyToOne
@@ -37,4 +35,83 @@ public class EventEntity {
 
     @Column(name = "duration_in_minutes")
     private int durationInMinutes;
+
+    public EventEntity() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ParticipantEntity getHost() {
+        return host;
+    }
+
+    public void setHost(ParticipantEntity host) {
+        this.host = host;
+    }
+
+    public Set<ParticipantEntity> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<ParticipantEntity> participants) {
+        this.participants = participants;
+    }
+
+    public Set<InterestEntity> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(Set<InterestEntity> interests) {
+        this.interests = interests;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    @Override
+    public String toString() {
+        return "EventEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", host=" + host +
+                ", dateTime=" + dateTime +
+                ", url='" + url + '\'' +
+                ", durationInMinutes=" + durationInMinutes +
+                '}';
+    }
 }

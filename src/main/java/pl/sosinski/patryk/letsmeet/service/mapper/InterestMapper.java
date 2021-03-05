@@ -22,7 +22,7 @@ public class InterestMapper {
         return interestEntity;
     }
 
-    public InterestModel from(InterestEntity interestEntity){
+    public InterestModel from(InterestEntity interestEntity) {
         LOGGER.info("from(" + interestEntity + ")");
 
         ModelMapper modelMapper = new ModelMapper();

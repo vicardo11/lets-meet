@@ -4,15 +4,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "interests")
+@Table(name = "INTERESTS")
 public class InterestEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
     @ManyToMany
@@ -20,4 +18,39 @@ public class InterestEntity {
                 joinColumns = {@JoinColumn(name = "interest_id")},
                 inverseJoinColumns = {@JoinColumn(name = "event_id")})
     private Set<EventEntity> events;
+
+    public InterestEntity() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<EventEntity> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<EventEntity> events) {
+        this.events = events;
+    }
+
+    @Override
+    public String toString() {
+        return "InterestEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

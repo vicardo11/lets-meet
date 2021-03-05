@@ -50,18 +50,4 @@ class EventMapperTest {
         );
     }
 
-//    @Test
-//    void from1() {
-//        //Given
-//        EventMapper eventMapper = new EventMapper();
-//        EventModel eventModel = new EventModel();
-//
-//        //When
-//        EventEntity eventEntity = eventMapper.from(eventModel);
-//
-//        //Then
-//        assertNotNull(eventEntity.getId(), "EventEntity.id is null");
-//    }
-
-
 }

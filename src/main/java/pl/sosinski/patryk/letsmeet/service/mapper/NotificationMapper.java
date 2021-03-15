@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import pl.sosinski.patryk.letsmeet.repository.entity.NotificationEntity;
 import pl.sosinski.patryk.letsmeet.web.model.NotificationModel;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Component
 public class NotificationMapper {
@@ -23,6 +25,14 @@ public class NotificationMapper {
         return notificationModel;
     }
 
+    public List<NotificationModel> fromEntities(List<NotificationEntity> notificationEntities) {
+        LOGGER.info("fromEntities()");
+
+        return notificationEntities.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
+    }
+
     public NotificationEntity from(NotificationModel notificationModel) {
         LOGGER.info("from(" + notificationModel + ")");
 
@@ -32,5 +42,13 @@ public class NotificationMapper {
         LOGGER.info("from(...) = " + notificationEntity);
 
         return notificationEntity;
+    }
+
+    public List<NotificationEntity> fromModels(List<NotificationModel> notificationModels) {
+        LOGGER.info("fromModels()");
+
+        return notificationModels.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
     }
 }

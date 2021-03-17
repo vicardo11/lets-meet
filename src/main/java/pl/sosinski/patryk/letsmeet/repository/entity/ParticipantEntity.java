@@ -21,11 +21,11 @@ public class ParticipantEntity {
 
     private String password;
 
-    @OneToMany(mappedBy = "host")
-    private Set<EventEntity> hostedEvents;
-
-    @ManyToMany(mappedBy = "participants")
-    private Set<EventEntity> participatedEvents;
+//    @OneToMany(mappedBy = "host")
+//    private Set<EventEntity> hostedEvents;
+//
+//    @ManyToMany(mappedBy = "participants")
+//    private Set<EventEntity> participatedEvents;
 
     public ParticipantEntity() {
     }
@@ -78,21 +78,21 @@ public class ParticipantEntity {
         this.password = password;
     }
 
-    public Set<EventEntity> getHostedEvents() {
-        return hostedEvents;
-    }
-
-    public void setHostedEvents(Set<EventEntity> hostedEvents) {
-        this.hostedEvents = hostedEvents;
-    }
-
-    public Set<EventEntity> getParticipatedEvents() {
-        return participatedEvents;
-    }
-
-    public void setParticipatedEvents(Set<EventEntity> participatedEvents) {
-        this.participatedEvents = participatedEvents;
-    }
+//    public Set<EventEntity> getHostedEvents() {
+//        return hostedEvents;
+//    }
+//
+//    public void setHostedEvents(Set<EventEntity> hostedEvents) {
+//        this.hostedEvents = hostedEvents;
+//    }
+//
+//    public Set<EventEntity> getParticipatedEvents() {
+//        return participatedEvents;
+//    }
+//
+//    public void setParticipatedEvents(Set<EventEntity> participatedEvents) {
+//        this.participatedEvents = participatedEvents;
+//    }
 
     @Override
     public String toString() {

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Component
 public class EventMapper {
@@ -22,6 +24,14 @@ public class EventMapper {
         return eventEntity;
     }
 
+    public List<EventEntity> fromModels(List<EventModel> eventModels) {
+        LOGGER.info("fromModels()");
+
+        return eventModels.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
+    }
+
     public EventModel from(EventEntity eventEntity){
         LOGGER.info("from(" + eventEntity + ")");
 
@@ -31,5 +41,13 @@ public class EventMapper {
         LOGGER.info("from(...) = " + eventModel);
 
         return eventModel;
+    }
+
+    public List<EventModel> fromEntities(List<EventEntity> eventEntities) {
+        LOGGER.info("fromEntities()");
+
+        return eventEntities.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
     }
 }

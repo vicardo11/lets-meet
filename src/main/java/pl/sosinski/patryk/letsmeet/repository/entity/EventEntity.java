@@ -14,8 +14,8 @@ public class EventEntity {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "host_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "host_id", nullable = false)
     private ParticipantEntity host;
 
 //    @ManyToMany

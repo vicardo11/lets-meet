@@ -45,7 +45,14 @@ class EventServiceTest {
     @Test
     void givenModelAndService_whenCreate_thenServiceListSizeOne() {
         //Given
-        EventModel eventModel = new EventModel();
+        ParticipantModel participantModel = ParticipantModel.builder()
+                .firstName("Patryk")
+                .build();
+
+        EventModel eventModel = EventModel.builder()
+                .name("Java szkolenie")
+                .host(participantModel)
+                .build();
 
         //When
         eventService.create(eventModel);

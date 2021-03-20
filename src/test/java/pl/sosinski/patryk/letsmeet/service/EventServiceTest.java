@@ -12,7 +12,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional
 class EventServiceTest {
 
     public static final int EVENT_MODELS_SIZE_1 = 1;

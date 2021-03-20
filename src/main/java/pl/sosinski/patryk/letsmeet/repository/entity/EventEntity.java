@@ -15,7 +15,7 @@ public class EventEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "host_id", nullable = false)
+    @JoinColumn(name = "host_id")
     private ParticipantEntity host;
 
 //    @ManyToMany

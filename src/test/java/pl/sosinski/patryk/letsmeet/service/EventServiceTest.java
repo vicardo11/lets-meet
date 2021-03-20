@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import pl.sosinski.patryk.letsmeet.repository.ParticipantRepository;
+import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
+import pl.sosinski.patryk.letsmeet.service.mapper.ParticipantMapper;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
 import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 
@@ -12,27 +15,32 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class EventServiceTest {
 
     public static final int EVENT_MODELS_SIZE_1 = 1;
 
     @Autowired
     private EventService eventService;
+    @Autowired
+    private ParticipantRepository participantRepository;
+    @Autowired
+    private ParticipantMapper participantMapper;
 
     @Test
-    @Transactional
     void givenModelAndService_whenCreate_thenCreatedModelNotNull() {
         //Given
-        ParticipantModel participantModel = ParticipantModel.builder()
-                .firstName("Patryk")
-                .build();
-
         EventModel eventModel = EventModel.builder()
                 .name("Java szkolenie")
-                .host(participantModel)
                 .build();
 
+        ParticipantEntity participantEntity = new ParticipantEntity();
+        participantEntity.setFirstName("Patryk");
+
         //When
+        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
+        ParticipantModel savedParticipantModel = participantMapper.from(savedParticipantEntity);
+        eventModel.setHost(savedParticipantModel);
         EventModel createdEventModel = eventService.create(eventModel);
 
         //Then
@@ -45,16 +53,17 @@ class EventServiceTest {
     @Test
     void givenModelAndService_whenCreate_thenServiceListSizeOne() {
         //Given
-        ParticipantModel participantModel = ParticipantModel.builder()
-                .firstName("Patryk")
-                .build();
-
         EventModel eventModel = EventModel.builder()
                 .name("Java szkolenie")
-                .host(participantModel)
                 .build();
 
+        ParticipantEntity participantEntity = new ParticipantEntity();
+        participantEntity.setFirstName("Patryk");
+
         //When
+        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
+        ParticipantModel savedParticipantModel = participantMapper.from(savedParticipantEntity);
+        eventModel.setHost(savedParticipantModel);
         eventService.create(eventModel);
         List<EventModel> eventModels = eventService.list();
 

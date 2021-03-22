@@ -19,28 +19,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class EventServiceTest {
 
     public static final int EVENT_MODELS_SIZE_1 = 1;
-    public static final String EVENT_NAME_JAVA_SZKOLENIE = "Java szkolenie";
-    public static final String PARTICIPANT_FIRST_NAME_PATRYK = "Patryk";
 
     @Autowired
     private EventService eventService;
-
     @Autowired
     private ParticipantRepository participantRepository;
-
     @Autowired
     private ParticipantMapper participantMapper;
 
     @Test
-    @Transactional
     void givenModelAndService_whenCreate_thenCreatedModelNotNull() {
         //Given
         EventModel eventModel = EventModel.builder()
-                .name(EVENT_NAME_JAVA_SZKOLENIE)
+                .name("Java szkolenie")
                 .build();
 
         ParticipantEntity participantEntity = new ParticipantEntity();
-        participantEntity.setFirstName(PARTICIPANT_FIRST_NAME_PATRYK);
+        participantEntity.setFirstName("Patryk");
 
         //When
         ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
@@ -59,11 +54,11 @@ class EventServiceTest {
     void givenModelAndService_whenCreate_thenServiceListSizeOne() {
         //Given
         EventModel eventModel = EventModel.builder()
-                .name(EVENT_NAME_JAVA_SZKOLENIE)
+                .name("Java szkolenie")
                 .build();
 
         ParticipantEntity participantEntity = new ParticipantEntity();
-        participantEntity.setFirstName(PARTICIPANT_FIRST_NAME_PATRYK);
+        participantEntity.setFirstName("Patryk");
 
         //When
         ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);

@@ -11,10 +11,11 @@ import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-//@EnableTransactionManagement
 class EventRepositoryTest {
 
     public static final String EVENT_ENTITY_NAME_JAVA = "Szkolenie Java";
+    public static final String PARTICIPANT_FIRST_NAME_PATRYK = "Patryk";
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -22,12 +23,14 @@ class EventRepositoryTest {
     private ParticipantRepository participantRepository;
 
     @Test
-//    @Transactional
     void given_when_then() {
         //Given
         EventEntity eventEntity = new EventEntity();
+        ParticipantEntity participantEntity = new ParticipantEntity();
+        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
+
         eventEntity.setName(EVENT_ENTITY_NAME_JAVA);
-        eventEntity.setHost(new ParticipantEntity());
+        eventEntity.setHost(savedParticipantEntity);
 
         //When
         EventEntity savedEventEntity = eventRepository.save(eventEntity);
@@ -40,11 +43,10 @@ class EventRepositoryTest {
     }
 
     @Test
-//    @Transactional
     void given_when_then1() {
         //Given
         ParticipantEntity participantEntity = new ParticipantEntity();
-        participantEntity.setFirstName("Patryk");
+        participantEntity.setFirstName(PARTICIPANT_FIRST_NAME_PATRYK);
 
         EventEntity eventEntity = new EventEntity();
         eventEntity.setName(EVENT_ENTITY_NAME_JAVA);

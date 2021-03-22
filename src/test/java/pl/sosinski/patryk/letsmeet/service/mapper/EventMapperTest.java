@@ -3,7 +3,9 @@ package pl.sosinski.patryk.letsmeet.service.mapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
+import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
+import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,5 +51,28 @@ class EventMapperTest {
                 () -> assertNotNull(eventModel.getName(), "EventModel.name is null")
         );
     }
+
+    @Test
+    void givenMapper_whenFrom_thenEntityEquals1() {
+        //Given
+        EventMapper eventMapper = new EventMapper();
+        EventModel eventModel = new EventModel();
+        ParticipantModel participantModel = new ParticipantModel();
+        eventModel.setId(EVENT_ID_1);
+        eventModel.setName(EVENT_NAME_WYDARZENIE);
+        eventModel.setHost(participantModel);
+
+        //When
+        EventEntity eventEntity = eventMapper.from(eventModel);
+
+        //Then
+        assertAll(
+                () -> assertNotNull(eventEntity, "EventEntity is null"),
+                () -> assertNotNull(eventEntity.getId(), "EventEntity.id is null"),
+                () -> assertNotNull(eventEntity.getName(), "EventEntity.name is null"),
+                () -> assertNotNull(eventEntity.getHost(), "EventEntity.host is null")
+        );
+    }
+
 
 }

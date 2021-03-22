@@ -18,14 +18,14 @@ public class EventEntity {
     @JoinColumn(name = "host_id", nullable = false)
     private ParticipantEntity host;
 
-    @ManyToMany
-    @JoinTable(name = "participants_events",
-                joinColumns = {@JoinColumn(name = "event_id")},
-                inverseJoinColumns = {@JoinColumn(name = "participant_id")})
-    private Set<ParticipantEntity> participants;
+//    @ManyToMany
+//    @JoinTable(name = "participants_events",
+//                joinColumns = {@JoinColumn(name = "event_id")},
+//                inverseJoinColumns = {@JoinColumn(name = "participant_id")})
+//    private Set<ParticipantEntity> participants;
 
-    @ManyToMany(mappedBy = "events")
-    private Set<InterestEntity> interests;
+//    @ManyToMany(mappedBy = "events")
+//    private Set<InterestEntity> interests;
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
@@ -63,21 +63,21 @@ public class EventEntity {
         this.host = host;
     }
 
-    public Set<ParticipantEntity> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(Set<ParticipantEntity> participants) {
-        this.participants = participants;
-    }
-
-    public Set<InterestEntity> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(Set<InterestEntity> interests) {
-        this.interests = interests;
-    }
+//    public Set<ParticipantEntity> getParticipants() {
+//        return participants;
+//    }
+//
+//    public void setParticipants(Set<ParticipantEntity> participants) {
+//        this.participants = participants;
+//    }
+//
+//    public Set<InterestEntity> getInterests() {
+//        return interests;
+//    }
+//
+//    public void setInterests(Set<InterestEntity> interests) {
+//        this.interests = interests;
+//    }
 
     public LocalDateTime getDateTime() {
         return dateTime;

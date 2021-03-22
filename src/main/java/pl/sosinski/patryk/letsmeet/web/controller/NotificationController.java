@@ -7,8 +7,10 @@ import pl.sosinski.patryk.letsmeet.web.model.NotificationModel;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.NOTIFICATIONS_URI;
+
 @RestController
-@RequestMapping(value = "/notifications")
+@RequestMapping(value = NOTIFICATIONS_URI)
 public class NotificationController {
 
     private static final Logger LOGGER = Logger.getLogger(NotificationController.class.getName());
@@ -21,9 +23,10 @@ public class NotificationController {
 
     @GetMapping
     public List<NotificationModel> list() {
-
+        LOGGER.info("list()");
         List<NotificationModel> notificationModels = notificationService.list();
 
+        LOGGER.info("list() = " + notificationModels);
         return notificationModels;
     }
 

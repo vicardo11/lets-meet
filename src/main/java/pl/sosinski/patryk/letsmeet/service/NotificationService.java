@@ -31,7 +31,7 @@ public class NotificationService {
 
         List<NotificationModel> notificationModels = notificationMapper.fromEntities(notificationEntities);
 
-        LOGGER.info("list(...)");
+        LOGGER.info("list(...) = " + notificationModels);
         return notificationModels;
     }
 

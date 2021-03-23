@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
 import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Component
 public class ParticipantMapper {
@@ -21,6 +23,14 @@ public class ParticipantMapper {
         LOGGER.info("from(...) = " + participantModel);
 
         return participantModel;
+    }
+
+    public List<ParticipantModel> fromEntities(List<ParticipantEntity> participantEntities) {
+        LOGGER.info("fromEntities(" + participantEntities + ")");
+
+        return participantEntities.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
     }
 
     public ParticipantEntity from(ParticipantModel participantModel) {

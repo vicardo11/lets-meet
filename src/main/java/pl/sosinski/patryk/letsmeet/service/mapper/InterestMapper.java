@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import pl.sosinski.patryk.letsmeet.repository.entity.InterestEntity;
 import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Component
 public class InterestMapper {
@@ -31,5 +33,11 @@ public class InterestMapper {
         LOGGER.info("from(...)=" + interestModel);
 
         return interestModel;
+    }
+
+    public List<InterestModel> fromEntities(List<InterestEntity> interestEntities) {
+        return interestEntities.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
     }
 }

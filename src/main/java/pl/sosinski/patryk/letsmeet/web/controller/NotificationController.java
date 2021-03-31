@@ -1,6 +1,7 @@
 package pl.sosinski.patryk.letsmeet.web.controller;
 
 import org.springframework.web.bind.annotation.*;
+import pl.sosinski.patryk.letsmeet.core.exception.LetsMeetException;
 import pl.sosinski.patryk.letsmeet.service.NotificationService;
 import pl.sosinski.patryk.letsmeet.web.model.NotificationModel;
 
@@ -38,4 +39,23 @@ public class NotificationController {
         LOGGER.info("create(...) = " + createdNotificationModel);
         return createdNotificationModel;
     }
+
+    @GetMapping(value = "/{id}")
+    public NotificationModel read(@PathVariable(name = "id") Long id) throws LetsMeetException {
+        LOGGER.info("read(" + id + ")");
+        NotificationModel notificationModel = notificationService.read(id);
+
+        LOGGER.info("read(...) = " + notificationModel);
+        return notificationModel;
+    }
+
+    @PutMapping(value = "/{id}")
+    public NotificationModel update(@PathVariable(name = "id") Long id, @RequestBody NotificationModel notificationModel) throws LetsMeetException {
+        LOGGER.info("update(" + id + ")");
+        NotificationModel updateNotificationModel = notificationService.update(notificationModel);
+
+        LOGGER.info("update(...) = " + updateNotificationModel);
+        return updateNotificationModel;
+    }
+
 }

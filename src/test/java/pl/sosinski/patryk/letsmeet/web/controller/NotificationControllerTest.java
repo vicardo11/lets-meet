@@ -16,9 +16,12 @@ import pl.sosinski.patryk.letsmeet.web.model.NotificationModel;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.NOTIFICATIONS_URI;
@@ -28,6 +31,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.NOT
 class NotificationControllerTest {
 
     public static final int NOTIFICATION_MODELS_SIZE_2 = 2;
+    public static final long NOTIFICATION_ID_1 = 1L;
     @Autowired
     private MockMvc mockMvc;
 
@@ -74,4 +78,42 @@ class NotificationControllerTest {
         assertEquals(NOTIFICATION_MODELS_SIZE_2, parsedNotificationModels.size(),
                 "NotificationModels isn't equal to " + NOTIFICATION_MODELS_SIZE_2);
     }
+
+    @Test
+    void givenUriNotificationsWithId_whenGet_thenStatusIsOk() throws Exception {
+        //Given
+        NotificationModel notificationModel = new NotificationModel();
+        notificationModel.setId(NOTIFICATION_ID_1);
+
+        //When
+        when(notificationService.read(NOTIFICATION_ID_1)).thenReturn(notificationModel);
+        MvcResult mvcResult = mockMvc.perform(get(NOTIFICATIONS_URI + "/" + NOTIFICATION_ID_1))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String contentAsString = response.getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        NotificationModel parsedNotificationModel = objectMapper.readValue(contentAsString, NotificationModel.class);
+
+        //Then
+        assertAll(
+                () -> assertNotNull(parsedNotificationModel, "NotificationModel is null"),
+                () -> assertNotNull(parsedNotificationModel.getId(), "NotificationModel Id is null")
+        );
+    }
+
+    @Test
+    void givenUriNotificationsWithIdAndNotificationModel_whenPut_thenStatusIsOk() throws Exception {
+        //Given
+
+        //When
+        MvcResult mvcResult = mockMvc.perform(put(NOTIFICATIONS_URI + "/" + NOTIFICATION_ID_1))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        //Then
+    }
+
 }

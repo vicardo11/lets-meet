@@ -3,14 +3,16 @@ package pl.sosinski.patryk.letsmeet.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-import pl.sosinski.patryk.letsmeet.core.exception.LetsMeetException;
 import pl.sosinski.patryk.letsmeet.core.exception.NotificationNotFoundException;
 import pl.sosinski.patryk.letsmeet.web.model.NotificationModel;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional

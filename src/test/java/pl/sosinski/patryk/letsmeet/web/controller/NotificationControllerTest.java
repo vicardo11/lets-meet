@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,6 +34,8 @@ class NotificationControllerTest {
 
     public static final int NOTIFICATION_MODELS_SIZE_2 = 2;
     public static final long NOTIFICATION_ID_1 = 1L;
+    public static final String NOTIFICATION_DESCRIPTION_EVENT_COMING = "Your event is coming";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -105,14 +109,69 @@ class NotificationControllerTest {
     }
 
     @Test
-    void givenUriNotificationsWithIdAndNotificationModel_whenPut_thenStatusIsOk() throws Exception {
+    void givenUriNotificationsWithNotificationModel_whenPost_thenStatusIsOK() throws Exception {
         //Given
+        NotificationModel notificationModel = new NotificationModel();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(notificationModel);
 
         //When
-        MvcResult mvcResult = mockMvc.perform(put(NOTIFICATIONS_URI + "/" + NOTIFICATION_ID_1))
-                .andDo(print())
+        mockMvc.perform(post(NOTIFICATIONS_URI)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk());
+
+        //Then
+    }
+
+    @Test
+    void givenUriNotificationsAndNotificationModel_whenPost_thenCreatedNotificationModelNotNull() throws Exception {
+        //Given
+        NotificationModel notificationModel = NotificationModel.builder()
+                .id(NOTIFICATION_ID_1)
+                .description(NOTIFICATION_DESCRIPTION_EVENT_COMING)
+                .build();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(notificationModel);
+
+        //When
+        when(notificationService.create(notificationModel)).thenReturn(notificationModel);
+        MvcResult mvcResult = mockMvc.perform(post(NOTIFICATIONS_URI)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(json))
                 .andExpect(status().isOk())
                 .andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String contentAsString = response.getContentAsString();
+        NotificationModel parsedNotificationModel = objectMapper.readValue(contentAsString, NotificationModel.class);
+        //Then
+        assertAll(
+                () -> assertNotNull(parsedNotificationModel, "NotificationModel is null"),
+                () -> assertNotNull(parsedNotificationModel.getId(), "NotificationModel.id is null")
+        );
+
+    }
+
+    @Test
+    void givenUriNotificationsWithIdAndNotificationModel_whenPut_thenStatusIsOk() throws Exception {
+        //Given
+        NotificationModel notificationModel = NotificationModel.builder()
+                .id(NOTIFICATION_ID_1)
+                .description(NOTIFICATION_DESCRIPTION_EVENT_COMING)
+                .build();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(notificationModel);
+
+        //When
+        when(notificationService.update(notificationModel)).thenReturn(notificationModel);
+        mockMvc.perform(put(NOTIFICATIONS_URI + "/" + NOTIFICATION_ID_1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isOk());
         //Then
     }
 

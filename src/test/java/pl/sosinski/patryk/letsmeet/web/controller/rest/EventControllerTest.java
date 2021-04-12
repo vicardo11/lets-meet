@@ -1,4 +1,4 @@
-package pl.sosinski.patryk.letsmeet.web.controller;
+package pl.sosinski.patryk.letsmeet.web.controller.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

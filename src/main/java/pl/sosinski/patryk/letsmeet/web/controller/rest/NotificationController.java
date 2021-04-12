@@ -1,4 +1,4 @@
-package pl.sosinski.patryk.letsmeet.web.controller;
+package pl.sosinski.patryk.letsmeet.web.controller.rest;
 
 import org.springframework.web.bind.annotation.*;
 import pl.sosinski.patryk.letsmeet.core.exception.LetsMeetException;
@@ -8,7 +8,7 @@ import pl.sosinski.patryk.letsmeet.web.model.NotificationModel;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.NOTIFICATIONS_URI;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.NOTIFICATIONS_URI;
 
 @RestController
 @RequestMapping(value = NOTIFICATIONS_URI)

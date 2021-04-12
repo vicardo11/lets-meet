@@ -1,4 +1,4 @@
-package pl.sosinski.patryk.letsmeet.web.controller;
+package pl.sosinski.patryk.letsmeet.web.controller.rest;
 
 public class ControllerConstants {
 

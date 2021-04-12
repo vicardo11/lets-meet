@@ -1,7 +1,6 @@
 package pl.sosinski.patryk.letsmeet.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.sosinski.patryk.letsmeet.core.exception.EventNotFoundException;
 import pl.sosinski.patryk.letsmeet.repository.EventRepository;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
@@ -70,12 +69,11 @@ public class EventService {
         return updatedEventModel;
     }
 
-    public void delete(EventModel eventModel) {
-        LOGGER.info("delete(" + eventModel + ")");
+    public void delete(Long eventId) {
+        LOGGER.info("delete(" + eventId + ")");
 
-        EventEntity eventEntity = eventMapper.from(eventModel);
-        eventRepository.delete(eventEntity);
+        eventRepository.deleteById(eventId);
 
-        LOGGER.info("delete(...) = " + eventModel);
+        LOGGER.info("delete(...)");
     }
 }

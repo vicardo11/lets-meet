@@ -26,7 +26,7 @@ class EventRepositoryTest {
     private ParticipantRepository participantRepository;
 
     @Test
-    void given_when_then() {
+    void givenEventEntityAndRepository_whenSave_thenSavedEntityNotNull() {
         //Given
         EventEntity eventEntity = new EventEntity();
         ParticipantEntity participantEntity = new ParticipantEntity();
@@ -46,29 +46,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void given_when_then1() {
-        //Given
-        ParticipantEntity participantEntity = new ParticipantEntity();
-        participantEntity.setFirstName(PARTICIPANT_FIRST_NAME_PATRYK);
-
-        EventEntity eventEntity = new EventEntity();
-        eventEntity.setName(EVENT_ENTITY_NAME_JAVA);
-
-
-        //When
-        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
-        eventEntity.setHost(savedParticipantEntity);
-        EventEntity savedEventEntity = eventRepository.save(eventEntity);
-
-        //Then
-        assertAll(
-                () -> assertNotNull(savedEventEntity, "EventEntity is null"),
-                () -> assertNotNull(savedEventEntity.getId(), "EventEntity.id is null")
-        );
-    }
-
-    @Test
-    void given_when_then2() {
+    void givenEventEntityAndParticipants_whenSave_thenParticipantsSizeEqualTwo() {
         //Given
         EventEntity eventEntity = new EventEntity();
         HashSet<ParticipantEntity> participants = new HashSet<>();

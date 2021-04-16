@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,4 +19,6 @@ public class ParticipantModel {
     private short age;
     private String email;
     private String password;
+    private Set<EventModel> hostedEvents;
+    private Set<EventModel> participatedEvents;
 }

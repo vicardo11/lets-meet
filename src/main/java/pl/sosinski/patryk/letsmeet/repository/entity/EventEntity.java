@@ -6,8 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -26,17 +27,14 @@ public class EventEntity {
     @JoinColumn(name = "host_id", nullable = false)
     private ParticipantEntity host;
 
-//    @ManyToMany
-//    @JoinTable(name = "participants_events",
-//                joinColumns = {@JoinColumn(name = "event_id")},
-//                inverseJoinColumns = {@JoinColumn(name = "participant_id")})
-//    private Set<ParticipantEntity> participants;
-
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name = "participants_events",
+                joinColumns = {@JoinColumn(name = "event_id")},
+                inverseJoinColumns = {@JoinColumn(name = "participant_id")})
     private Set<ParticipantEntity> participants;
 
-//    @ManyToMany(mappedBy = "events")
-//    private Set<InterestEntity> interests;
+    @ManyToMany(mappedBy = "events")
+    private Set<InterestEntity> interests;
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
@@ -81,14 +79,14 @@ public class EventEntity {
     public void setParticipants(Set<ParticipantEntity> participants) {
         this.participants = participants;
     }
-//
-//    public Set<InterestEntity> getInterests() {
-//        return interests;
-//    }
-//
-//    public void setInterests(Set<InterestEntity> interests) {
-//        this.interests = interests;
-//    }
+
+    public Set<InterestEntity> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(Set<InterestEntity> interests) {
+        this.interests = interests;
+    }
 
     public LocalDateTime getDateTime() {
         return dateTime;

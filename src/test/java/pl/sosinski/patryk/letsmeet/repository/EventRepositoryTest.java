@@ -50,9 +50,12 @@ class EventRepositoryTest {
         //Given
         EventEntity eventEntity = new EventEntity();
         HashSet<ParticipantEntity> participants = new HashSet<>();
+
         ParticipantEntity participantEntity1 = new ParticipantEntity();
         ParticipantEntity participantEntity2 = new ParticipantEntity();
+
         eventEntity.setHost(participantEntity1);
+
         participants.add(participantEntity1);
         participants.add(participantEntity2);
 

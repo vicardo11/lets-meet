@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sosinski.patryk.letsmeet.core.exception.EventNotFoundException;
+import pl.sosinski.patryk.letsmeet.core.exception.InterestNotFoundException;
 import pl.sosinski.patryk.letsmeet.service.EventService;
+import pl.sosinski.patryk.letsmeet.service.InterestService;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
+import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -23,9 +26,11 @@ public class EventController {
     private static final Logger LOGGER = Logger.getLogger(EventController.class.getName());
 
     private final EventService eventService;
+    private final InterestService interestService;
 
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, InterestService interestService) {
         this.eventService = eventService;
+        this.interestService = interestService;
     }
 
     @GetMapping
@@ -35,6 +40,16 @@ public class EventController {
 
         LOGGER.info("list() = " + eventModels);
         return eventModels;
+    }
+
+    @GetMapping(value = "/by-interest/{interestId}")
+    public List<EventModel> listByInterest(@PathVariable Long interestId) throws InterestNotFoundException {
+        LOGGER.info("listByInterest(" + interestId + ")");
+        InterestModel interestModel = interestService.read(interestId);
+
+        List<EventModel> eventModelsByInterest = eventService.listByInterest(interestModel);
+        LOGGER.info("listByInterest(...) = " + eventModelsByInterest);
+        return eventModelsByInterest;
     }
 
     @GetMapping(value = "/{id}")

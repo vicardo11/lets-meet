@@ -3,11 +3,13 @@ package pl.sosinski.patryk.letsmeet.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import pl.sosinski.patryk.letsmeet.repository.entity.NotificationEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class NotificationRepositoryTest {
 
     public static final String NOTIFICATION_ENTITY_DESCRIPTION_YOUR = "Your event is coming.";

@@ -14,10 +14,10 @@ import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.INTEREST_URI;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.INTERESTS_URI;
 
 @RestController
-@RequestMapping(value = INTEREST_URI)
+@RequestMapping(value = INTERESTS_URI)
 public class InterestController {
 
     private static final Logger LOGGER = Logger.getLogger(InterestController.class.getName());

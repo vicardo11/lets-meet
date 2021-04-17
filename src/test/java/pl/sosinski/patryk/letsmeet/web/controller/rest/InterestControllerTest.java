@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.INTEREST_URI;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.INTERESTS_URI;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -35,7 +35,7 @@ class InterestControllerTest {
         //Given
 
         //When
-        mockMvc.perform(get(INTEREST_URI + "/" + INTEREST_ID_1))
+        mockMvc.perform(get(INTERESTS_URI + "/" + INTEREST_ID_1))
                 .andDo(print())
                 .andExpect(status().isOk());
         //Then
@@ -46,7 +46,7 @@ class InterestControllerTest {
         //Given
 
         //When
-        mockMvc.perform(get(INTEREST_URI))
+        mockMvc.perform(get(INTERESTS_URI))
                 .andDo(print())
                 .andExpect(status().isOk());
         //Then
@@ -61,7 +61,7 @@ class InterestControllerTest {
         String valueAsString = objectMapper.writeValueAsString(interestModel);
 
         //When
-        mockMvc.perform(post(INTEREST_URI)
+        mockMvc.perform(post(INTERESTS_URI)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(valueAsString))
                 .andDo(print())
@@ -81,7 +81,7 @@ class InterestControllerTest {
         String interestModelAsString = objectMapper.writeValueAsString(interestModel);
 
         //When
-        mockMvc.perform(put(INTEREST_URI + "/" + INTEREST_ID_1)
+        mockMvc.perform(put(INTERESTS_URI + "/" + INTEREST_ID_1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(interestModelAsString))
                 .andDo(print())

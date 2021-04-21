@@ -66,7 +66,7 @@ class NotificationControllerTest {
         //When
         when(notificationService.list()).thenReturn(notificationModels);
 
-        MvcResult mvcResult = mockMvc.perform(get("/notifications"))
+        MvcResult mvcResult = mockMvc.perform(get(NOTIFICATIONS_URI))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();

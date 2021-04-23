@@ -1,6 +1,7 @@
 package pl.sosinski.patryk.letsmeet.repository.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,10 +15,11 @@ public class InterestEntity {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "events_interests",
-                joinColumns = {@JoinColumn(name = "interest_id")},
-                inverseJoinColumns = {@JoinColumn(name = "event_id")})
-    private Set<EventEntity> events;
+    @JoinTable(name = "events_interests")
+//    @JoinTable(name = "events_interests",
+//                joinColumns = {@JoinColumn(name = "interest_id")},
+//                inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    private Set<EventEntity> events = new HashSet<>();
 
     public InterestEntity() {
     }

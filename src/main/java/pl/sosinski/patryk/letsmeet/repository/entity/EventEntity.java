@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,7 +35,7 @@ public class EventEntity {
     private Set<ParticipantEntity> participants;
 
     @ManyToMany(mappedBy = "events")
-    private Set<InterestEntity> interests;
+    private Set<InterestEntity> interests = new HashSet<>();
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
@@ -111,6 +112,12 @@ public class EventEntity {
     public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
     }
+
+//    public void addInterest(InterestEntity interestEntity) {
+//        if(interests == null)
+//            interests = new HashSet<>();
+//        interests.add(interestEntity);
+//    }
 
     @Override
     public String toString() {

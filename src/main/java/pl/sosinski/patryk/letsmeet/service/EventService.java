@@ -43,7 +43,7 @@ public class EventService {
         LOGGER.info("listByInterest(" + interestModel + ")");
         InterestEntity interestEntity = interestMapper.from(interestModel);
 
-        List<EventEntity> eventEntitiesByInterest = eventRepository.findByInterestsContains(interestEntity);
+        List<EventEntity> eventEntitiesByInterest = eventRepository.findByInterestsNameContains(interestEntity.getName());
         List<EventModel> eventModelsByInterest = eventMapper.fromEntities(eventEntitiesByInterest);
 
         LOGGER.info("listByInterest(...) = " + eventModelsByInterest);

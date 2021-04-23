@@ -8,7 +8,9 @@
 </head>
 <body>
     <h1>Events list</h1>
-    <div th:text="${events}"></div>
+<!--    <div th:each="event : ${events}">-->
+<!--        <div th:text="${event}"></div>-->
+<!--    </div>-->
 
     <div class="container-fluid">
         <table class="table">
@@ -21,23 +23,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
+            <tr th:each="event : ${events}">
+                <th th:text="${event.id}" scope="row"></th>
+                <td th:text="${event.name}"></td>
                 <td>Otto</td>
                 <td>@mdo</td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+<!--            <tr>-->
+<!--                <th scope="row">2</th>-->
+<!--                <td>Jacob</td>-->
+<!--                <td>Thornton</td>-->
+<!--                <td>@fat</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th scope="row">3</th>-->
+<!--                <td colspan="2">Larry the Bird</td>-->
+<!--                <td>@twitter</td>-->
+<!--            </tr>-->
             </tbody>
         </table>
     </div>

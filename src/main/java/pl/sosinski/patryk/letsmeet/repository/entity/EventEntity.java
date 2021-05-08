@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,12 +30,12 @@ public class EventEntity {
 
     @ManyToMany
     @JoinTable(name = "participants_events",
-                joinColumns = {@JoinColumn(name = "event_id")},
-                inverseJoinColumns = {@JoinColumn(name = "participant_id")})
-    private Set<ParticipantEntity> participants;
+            joinColumns = {@JoinColumn(name = "event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "participant_id")})
+    private Set<ParticipantEntity> participants = new HashSet<>();
 
     @ManyToMany(mappedBy = "events")
-    private Set<InterestEntity> interests;
+    private Set<InterestEntity> interests = new HashSet<>();
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
@@ -112,12 +113,19 @@ public class EventEntity {
         this.durationInMinutes = durationInMinutes;
     }
 
+    public void addInterest(InterestEntity interestEntity) {
+        interests.add(interestEntity);
+        interestEntity.addEvent(this);
+    }
+
     @Override
     public String toString() {
         return "EventEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", host=" + host +
+                ", participants=" + participants +
+                ", interests=" + interests +
                 ", dateTime=" + dateTime +
                 ", url='" + url + '\'' +
                 ", durationInMinutes=" + durationInMinutes +

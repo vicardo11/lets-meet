@@ -3,7 +3,7 @@ package pl.sosinski.patryk.letsmeet.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
 import pl.sosinski.patryk.letsmeet.repository.entity.InterestEntity;
 import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-//@Transactional
+@Transactional
 class EventRepositoryTest {
 
     public static final String EVENT_ENTITY_NAME_JAVA = "Szkolenie Java";
@@ -84,29 +84,33 @@ class EventRepositoryTest {
     }
 
     @Test
-    @Rollback(false)
-    void given_when_then() {
+    void givenEventEntityAndInterest_whenFindByInterestId_thenFoundEventListSizeEqualsOne() {
         //Given
+        EventEntity eventEntity = new EventEntity();
         ParticipantEntity participantEntity = new ParticipantEntity();
+        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
 
         InterestEntity interestEntity = new InterestEntity();
-        interestEntity.setName("Sport");
+        interestEntity.setName("Programowanie");
+        interestEntity.addEvent(eventEntity);
 
-        EventEntity eventEntity = new EventEntity();
-        eventEntity.setHost(participantEntity);
+        eventEntity.setName(EVENT_ENTITY_NAME_JAVA);
+        eventEntity.setHost(savedParticipantEntity);
+        eventEntity.addInterest(interestEntity);
 
-//        interestEntity.getEvents().add(eventEntity);
+        EventEntity savedEventEntity = eventRepository.save(eventEntity);
+        InterestEntity savedInterestEntity = interestRepository.save(interestEntity);
+
+        System.out.println(savedEventEntity);
+        System.out.println(savedInterestEntity);
 
         //When
-        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
-        InterestEntity savedInterestEntity = interestRepository.save(interestEntity);
-        eventEntity.getInterests().add(savedInterestEntity);
-        EventEntity savedEventEntity = eventRepository.save(eventEntity);
-        List<EventEntity> foundEventsByInterest = eventRepository.findByInterestsNameContains(savedInterestEntity.getName());
+        List<Long> longs = List.of(1L);
+        List<EventEntity> byInterestsContains = eventRepository.findByInterestsIdIn(longs);
+        System.out.println(byInterestsContains);
 
         //Then
-        assertEquals(1, foundEventsByInterest.size(), "FoundEventsByInterest isn't equal to 1");
-
+        assertEquals(1, byInterestsContains.size());
     }
 
 }

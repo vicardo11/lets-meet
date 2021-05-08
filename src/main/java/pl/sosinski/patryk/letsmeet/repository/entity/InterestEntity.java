@@ -15,10 +15,9 @@ public class InterestEntity {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "events_interests")
-//    @JoinTable(name = "events_interests",
-//                joinColumns = {@JoinColumn(name = "interest_id")},
-//                inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    @JoinTable(name = "events_interests",
+            joinColumns = {@JoinColumn(name = "interest_id")},
+            inverseJoinColumns = {@JoinColumn(name = "event_id")})
     private Set<EventEntity> events = new HashSet<>();
 
     public InterestEntity() {
@@ -46,6 +45,10 @@ public class InterestEntity {
 
     public void setEvents(Set<EventEntity> events) {
         this.events = events;
+    }
+
+    public void addEvent(EventEntity eventEntity){
+        events.add(eventEntity);
     }
 
     @Override

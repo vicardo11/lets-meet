@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<EventEntity, Long> {
 
-    List<EventEntity> findByInterestsNameContains(String name);
+    List<EventEntity> findByInterestsIdIn(List<Long> ids);
 }

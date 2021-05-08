@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -21,4 +22,5 @@ public class EventModel {
     private String url;
     private int durationInMinutes;
     private List<ParticipantModel> participants;
+    private Set<InterestModel> interests;
 }

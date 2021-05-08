@@ -5,7 +5,9 @@ import pl.sosinski.patryk.letsmeet.core.exception.EventNotFoundException;
 import pl.sosinski.patryk.letsmeet.repository.EventRepository;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
 import pl.sosinski.patryk.letsmeet.service.mapper.EventMapper;
+import pl.sosinski.patryk.letsmeet.service.mapper.InterestMapper;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
+import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +21,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
 
-    public EventService(EventRepository eventRepository, EventMapper eventMapper) {
+    public EventService(EventRepository eventRepository, EventMapper eventMapper, InterestMapper interestMapper) {
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
     }
@@ -32,6 +34,17 @@ public class EventService {
 
         LOGGER.info("list(...)");
         return eventModels;
+    }
+
+    public List<EventModel> listByInterest(InterestModel interestModel) {
+        LOGGER.info("listByInterest(" + interestModel + ")");
+
+        List<Long> ids = List.of(interestModel.getId());
+        List<EventEntity> eventEntitiesByInterest = eventRepository.findByInterestsIdIn(ids);
+        List<EventModel> eventModelsByInterest = eventMapper.fromEntities(eventEntitiesByInterest);
+
+        LOGGER.info("listByInterest(...) = " + eventModelsByInterest);
+        return eventModelsByInterest;
     }
 
     public EventModel create(EventModel eventModel) {

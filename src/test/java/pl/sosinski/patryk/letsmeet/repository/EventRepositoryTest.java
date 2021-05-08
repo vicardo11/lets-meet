@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
+import pl.sosinski.patryk.letsmeet.repository.entity.InterestEntity;
 import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
 
 import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,6 +28,9 @@ class EventRepositoryTest {
 
     @Autowired
     private ParticipantRepository participantRepository;
+
+    @Autowired
+    private InterestRepository interestRepository;
 
     @Test
     void givenEventEntityAndRepository_whenSave_thenSavedEntityNotNull() {
@@ -76,6 +81,36 @@ class EventRepositoryTest {
                         "Participants isn't equal to " + EVENT_PARTICIPANTS_SIZE_2)
         );
 
+    }
+
+    @Test
+    void givenEventEntityAndInterest_whenFindByInterestId_thenFoundEventListSizeEqualsOne() {
+        //Given
+        EventEntity eventEntity = new EventEntity();
+        ParticipantEntity participantEntity = new ParticipantEntity();
+        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
+
+        InterestEntity interestEntity = new InterestEntity();
+        interestEntity.setName("Programowanie");
+        interestEntity.addEvent(eventEntity);
+
+        eventEntity.setName(EVENT_ENTITY_NAME_JAVA);
+        eventEntity.setHost(savedParticipantEntity);
+        eventEntity.addInterest(interestEntity);
+
+        EventEntity savedEventEntity = eventRepository.save(eventEntity);
+        InterestEntity savedInterestEntity = interestRepository.save(interestEntity);
+
+        System.out.println(savedEventEntity);
+        System.out.println(savedInterestEntity);
+
+        //When
+        List<Long> longs = List.of(1L);
+        List<EventEntity> byInterestsContains = eventRepository.findByInterestsIdIn(longs);
+        System.out.println(byInterestsContains);
+
+        //Then
+        assertEquals(1, byInterestsContains.size());
     }
 
 }

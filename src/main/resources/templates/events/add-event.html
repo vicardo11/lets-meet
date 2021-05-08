@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create event</title>
+</head>
+<body>
+    <div>
+        <div>
+            <form action="#" th:action="@{/events}" th:object="${event}" method="post">
+                <label for="name" th:text="#{event.add.name.label}"></label>
+                <input type="text" id="name" th:field="*{name}">
+            <br>
+                <label for="url" th:text="#{event.add.url.label}"></label>
+                <input type="text" id="url" th:field="*{url}">
+            <br>
+                <label for="dateTime" th:text="#{event.add.dateTime.label}"></label>
+                <input type="datetime-local" id="dateTime" th:field="*{dateTime}">
+            <br>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

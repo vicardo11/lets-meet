@@ -21,4 +21,9 @@ public class ParticipantModel {
     private String password;
     private Set<EventModel> hostedEvents;
     private Set<EventModel> participatedEvents;
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }

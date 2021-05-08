@@ -8,40 +8,29 @@
 </head>
 <body>
     <h1>Events list</h1>
-<!--    <div th:each="event : ${events}">-->
-<!--        <div th:text="${event}"></div>-->
-<!--    </div>-->
-
     <div class="container-fluid">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Event name</th>
+                <th scope="col">Url</th>
+                <th scope="col">DateTime</th>
+                <th scope="col">Host</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="event : ${events}">
-                <th th:text="${event.id}" scope="row"></th>
+<!--                <th th:text="${event.id}" scope="row"></th>-->
                 <td th:text="${event.name}"></td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td th:text="${event.url}"></td>
+                <td th:text="${#temporals.format(event.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${event.host}"></td>
             </tr>
-<!--            <tr>-->
-<!--                <th scope="row">2</th>-->
-<!--                <td>Jacob</td>-->
-<!--                <td>Thornton</td>-->
-<!--                <td>@fat</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <th scope="row">3</th>-->
-<!--                <td colspan="2">Larry the Bird</td>-->
-<!--                <td>@twitter</td>-->
-<!--            </tr>-->
             </tbody>
         </table>
+    </div>
+    <div>
+        <a href="/events/add">Add event</a>
     </div>
 </body>
 </html>

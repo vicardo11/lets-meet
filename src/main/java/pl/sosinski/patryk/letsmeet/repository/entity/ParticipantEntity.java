@@ -1,6 +1,7 @@
 package pl.sosinski.patryk.letsmeet.repository.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,10 +23,10 @@ public class ParticipantEntity {
     private String password;
 
     @OneToMany(mappedBy = "host")
-    private Set<EventEntity> hostedEvents;
+    private Set<EventEntity> hostedEvents = new HashSet<>();
 
     @ManyToMany(mappedBy = "participants")
-    private Set<EventEntity> participatedEvents;
+    private Set<EventEntity> participatedEvents = new HashSet<>();
 
     public ParticipantEntity() {
     }
@@ -92,6 +93,10 @@ public class ParticipantEntity {
 
     public void setParticipatedEvents(Set<EventEntity> participatedEvents) {
         this.participatedEvents = participatedEvents;
+    }
+
+    public void addParticipatedEvent(EventEntity eventEntity) {
+        participatedEvents.add(eventEntity);
     }
 
     @Override

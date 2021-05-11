@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sosinski.patryk.letsmeet.core.exception.EventNotFoundException;
-import pl.sosinski.patryk.letsmeet.core.exception.InterestNotFoundException;
+import pl.sosinski.patryk.letsmeet.core.exception.EventCategoryNotFoundException;
 import pl.sosinski.patryk.letsmeet.service.EventService;
-import pl.sosinski.patryk.letsmeet.service.InterestService;
+import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
-import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
+import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -26,11 +26,11 @@ public class EventController {
     private static final Logger LOGGER = Logger.getLogger(EventController.class.getName());
 
     private final EventService eventService;
-    private final InterestService interestService;
+    private final EventCategoryService eventCategoryService;
 
-    public EventController(EventService eventService, InterestService interestService) {
+    public EventController(EventService eventService, EventCategoryService eventCategoryService) {
         this.eventService = eventService;
-        this.interestService = interestService;
+        this.eventCategoryService = eventCategoryService;
     }
 
     @GetMapping
@@ -43,11 +43,11 @@ public class EventController {
     }
 
     @GetMapping(value = "/by-interest/{interestId}")
-    public List<EventModel> listByInterest(@PathVariable Long interestId) throws InterestNotFoundException {
+    public List<EventModel> listByInterest(@PathVariable Long interestId) throws EventCategoryNotFoundException {
         LOGGER.info("listByInterest(" + interestId + ")");
-        InterestModel interestModel = interestService.read(interestId);
+        EventCategoryModel eventCategoryModel = eventCategoryService.read(interestId);
 
-        List<EventModel> eventModelsByInterest = eventService.listByInterest(interestModel);
+        List<EventModel> eventModelsByInterest = eventService.listByInterest(eventCategoryModel);
         LOGGER.info("listByInterest(...) = " + eventModelsByInterest);
         return eventModelsByInterest;
     }

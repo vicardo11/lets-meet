@@ -15,21 +15,15 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParticipantModel {
+public class EventCategoryModel {
 
     private Long id;
-    private String firstName;
-    private String lastName;
-    private short age;
-    private String email;
-    private String password;
+    private String name;
     @Singular
-    private final Set<EventModel> hostedEvents = new HashSet<>();
-    @Singular
-    private final Set<EventModel> participatedEvents = new HashSet<>();
+    private final Set<EventModel> events = new HashSet<>();
 
     @Override
     public String toString() {
-        return firstName + " " + lastName;
+        return name;
     }
 }

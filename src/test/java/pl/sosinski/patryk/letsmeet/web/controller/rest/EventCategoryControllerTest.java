@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.sosinski.patryk.letsmeet.service.InterestService;
-import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
+import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
+import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -20,7 +20,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstant
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class InterestControllerTest {
+class EventCategoryControllerTest {
 
     public static final long INTEREST_ID_1 = 1L;
     public static final String INTEREST_NAME_SPORT = "Sport";
@@ -28,7 +28,7 @@ class InterestControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private InterestService interestService;
+    private EventCategoryService eventCategoryService;
 
     @Test
     void givenInterestUriAndInterestId_whenGet_thenStatusIsOk() throws Exception {
@@ -55,10 +55,10 @@ class InterestControllerTest {
     @Test
     void givenInterestUri_whenPost_thenStatusIsOk() throws Exception {
         //Given
-        InterestModel interestModel = new InterestModel();
+        EventCategoryModel eventCategoryModel = new EventCategoryModel();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String valueAsString = objectMapper.writeValueAsString(interestModel);
+        String valueAsString = objectMapper.writeValueAsString(eventCategoryModel);
 
         //When
         mockMvc.perform(post(INTERESTS_URI)
@@ -72,13 +72,13 @@ class InterestControllerTest {
     @Test
     void givenInterestUri_whenPut_thenStatusIsOk() throws Exception {
         //Given
-        InterestModel interestModel = InterestModel.builder()
+        EventCategoryModel eventCategoryModel = EventCategoryModel.builder()
                 .id(INTEREST_ID_1)
                 .name(INTEREST_NAME_SPORT)
                 .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String interestModelAsString = objectMapper.writeValueAsString(interestModel);
+        String interestModelAsString = objectMapper.writeValueAsString(eventCategoryModel);
 
         //When
         mockMvc.perform(put(INTERESTS_URI + "/" + INTEREST_ID_1)

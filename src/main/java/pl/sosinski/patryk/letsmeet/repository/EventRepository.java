@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<EventEntity, Long> {
 
-    List<EventEntity> findByInterestsIdIn(List<Long> ids);
+    List<EventEntity> findByCategoriesIdIn(List<Long> ids);
 }

@@ -35,7 +35,7 @@ public class EventEntity {
     private Set<ParticipantEntity> participants = new HashSet<>();
 
     @ManyToMany(mappedBy = "events")
-    private Set<InterestEntity> interests = new HashSet<>();
+    private Set<EventCategoryEntity> categories = new HashSet<>();
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
@@ -81,12 +81,12 @@ public class EventEntity {
         this.participants = participants;
     }
 
-    public Set<InterestEntity> getInterests() {
-        return interests;
+    public Set<EventCategoryEntity> getCategories() {
+        return categories;
     }
 
-    public void setInterests(Set<InterestEntity> interests) {
-        this.interests = interests;
+    public void setCategories(Set<EventCategoryEntity> interests) {
+        this.categories = interests;
     }
 
     public LocalDateTime getDateTime() {
@@ -113,9 +113,14 @@ public class EventEntity {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public void addInterest(InterestEntity interestEntity) {
-        interests.add(interestEntity);
-        interestEntity.addEvent(this);
+    public void addInterest(EventCategoryEntity eventCategoryEntity) {
+        categories.add(eventCategoryEntity);
+        eventCategoryEntity.addEvent(this);
+    }
+
+    public void addParticipant(ParticipantEntity participantEntity) {
+        participants.add(participantEntity);
+        participantEntity.addParticipatedEvent(this);
     }
 
     @Override
@@ -125,7 +130,7 @@ public class EventEntity {
                 ", name='" + name + '\'' +
                 ", host=" + host +
                 ", participants=" + participants +
-                ", interests=" + interests +
+                ", interests=" + categories +
                 ", dateTime=" + dateTime +
                 ", url='" + url + '\'' +
                 ", durationInMinutes=" + durationInMinutes +

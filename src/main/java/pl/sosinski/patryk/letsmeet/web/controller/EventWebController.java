@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sosinski.patryk.letsmeet.core.exception.EventCategoryNotFoundException;
+import pl.sosinski.patryk.letsmeet.core.exception.ParticipantNotFoundException;
 import pl.sosinski.patryk.letsmeet.service.EventManagerService;
 import pl.sosinski.patryk.letsmeet.service.EventService;
 import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
@@ -68,7 +70,8 @@ public class EventWebController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute(name = "event")EventRequestModel eventRequestModel, HttpServletRequest request) throws Exception { //TODO: Rzucić właściwy wyjątek
+    public String create(@ModelAttribute(name = "event")EventRequestModel eventRequestModel, HttpServletRequest request)
+            throws EventCategoryNotFoundException, ParticipantNotFoundException {
         LOGGER.info("create()");
 
         EventModel eventModel = eventManagerService.create(eventRequestModel);

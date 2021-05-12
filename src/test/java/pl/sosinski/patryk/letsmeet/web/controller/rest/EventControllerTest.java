@@ -146,37 +146,6 @@ class EventControllerTest {
     }
 
     @Test
-    void givenEventsUriAndEventModel_whenPost_thenCreatedEventModelNotNull() throws Exception {
-        //Given
-        EventModel eventModel = EventModel.builder()
-                .id(EVENT_ID_1)
-                .name(EVENT_NAME_JAVA_TRAINING)
-                .build();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String valueAsString = objectMapper.writeValueAsString(eventModel);
-
-        //When
-        when(eventService.create(eventModel)).thenReturn(eventModel);
-        MvcResult mvcResult = mockMvc.perform(post(EVENTS_URI)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(valueAsString))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        String contentAsString = response.getContentAsString();
-        EventModel parsedEventModel = objectMapper.readValue(contentAsString, EventModel.class);
-
-        //Then
-        assertAll(
-                () -> assertNotNull(parsedEventModel, "Parsed EventModel is null"),
-                () -> assertNotNull(parsedEventModel.getId(), "Parsed EventModel.id is null")
-        );
-    }
-
-    @Test
     void givenEventsUri_whenPut_thenStatusIsOk() throws Exception {
         //Given
         EventModel eventModel = EventModel.builder()

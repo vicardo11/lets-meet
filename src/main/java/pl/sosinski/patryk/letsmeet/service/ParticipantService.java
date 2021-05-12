@@ -1,7 +1,6 @@
 package pl.sosinski.patryk.letsmeet.service;
 
 import org.springframework.stereotype.Service;
-import pl.sosinski.patryk.letsmeet.core.exception.LetsMeetException;
 import pl.sosinski.patryk.letsmeet.core.exception.ParticipantNotFoundException;
 import pl.sosinski.patryk.letsmeet.repository.ParticipantRepository;
 import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
@@ -46,7 +45,7 @@ public class ParticipantService {
         return savedParticipantModel;
     }
 
-    public ParticipantModel read(Long participantId) throws LetsMeetException {
+    public ParticipantModel read(Long participantId) throws ParticipantNotFoundException {
         LOGGER.info("read(" + participantId + ")");
 
         Optional<ParticipantEntity> optionalParticipantEntity = participantRepository.findById(participantId);

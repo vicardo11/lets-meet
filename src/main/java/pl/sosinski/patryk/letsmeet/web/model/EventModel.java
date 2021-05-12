@@ -2,9 +2,9 @@ package pl.sosinski.patryk.letsmeet.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.Singular;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,8 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,8 +27,10 @@ public class EventModel {
     private LocalDateTime dateTime;
     private String url;
     private int durationInMinutes;
+    @EqualsAndHashCode.Exclude
     @Singular
-    private final List<ParticipantModel> participants = new ArrayList<>();
+    private List<ParticipantModel> participants = new ArrayList<>();
+    @EqualsAndHashCode.Exclude
     @Singular
-    private final Set<EventCategoryModel> categories = new HashSet<>();
+    private Set<EventCategoryModel> categories = new HashSet<>();
 }

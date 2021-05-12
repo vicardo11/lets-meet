@@ -36,7 +36,7 @@ public class EventService {
         return eventModels;
     }
 
-    public List<EventModel> listByInterest(EventCategoryModel eventCategoryModel) {
+    public List<EventModel> listByEventCategory(EventCategoryModel eventCategoryModel) {
         LOGGER.info("listByInterest(" + eventCategoryModel + ")");
 
         List<Long> ids = List.of(eventCategoryModel.getId());

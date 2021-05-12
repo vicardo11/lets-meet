@@ -123,7 +123,7 @@ class EventMapperTest {
         eventEntity.setHost(participantEntity);
         eventEntity.setDateTime(now);
         eventEntity.addParticipant(participantEntity1);
-        eventEntity.addInterest(eventCategoryEntity);
+        eventEntity.addEventCategory(eventCategoryEntity);
         eventEntity.setUrl(EVENT_URL_WP);
         eventEntity.setDurationInMinutes(EVENT_DURATION_20);
 

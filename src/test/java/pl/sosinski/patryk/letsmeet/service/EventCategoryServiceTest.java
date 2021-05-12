@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Transactional
 class EventCategoryServiceTest {
 
-    public static final String INTEREST_NAME_SPORT = "Sport";
-    private static final int INTEREST_MODELS_SIZE_1 = 1;
+    public static final String EVENT_CATEGORY_NAME = "Sport";
+    private static final int EVENT_CATEGORY_MODELS_SIZE_1 = 1;
 
     @Autowired
     private EventCategoryService eventCategoryService;
@@ -26,7 +26,7 @@ class EventCategoryServiceTest {
     void givenModelAndService_whenCreate_thenCreatedModelNotNull() {
         //Given
         EventCategoryModel eventCategoryModel = EventCategoryModel.builder()
-                .name(INTEREST_NAME_SPORT)
+                .name(EVENT_CATEGORY_NAME)
                 .build();
 
         //When
@@ -43,7 +43,7 @@ class EventCategoryServiceTest {
     void givenModelAndService_whenCreate_thenServiceListSizeOne() {
         //Given
         EventCategoryModel eventCategoryModel = EventCategoryModel.builder()
-                .name(INTEREST_NAME_SPORT)
+                .name(EVENT_CATEGORY_NAME)
                 .build();
 
         //When
@@ -53,7 +53,7 @@ class EventCategoryServiceTest {
         //Then
         assertAll(
                 () -> assertNotNull(eventCategoryModels, "EventModels is null"),
-                () -> assertEquals(INTEREST_MODELS_SIZE_1, eventCategoryModels.size(), "EventModels isn't empty")
+                () -> assertEquals(EVENT_CATEGORY_MODELS_SIZE_1, eventCategoryModels.size(), "EventModels isn't empty")
         );
     }
 }

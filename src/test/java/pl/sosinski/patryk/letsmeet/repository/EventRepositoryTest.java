@@ -84,7 +84,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void givenEventEntityAndInterest_whenFindByInterestId_thenFoundEventListSizeEqualsOne() {
+    void givenEventEntityAndEventCategory_whenFindByEventCategoryId_thenFoundEventListSizeEqualsOne() {
         //Given
         EventEntity eventEntity = new EventEntity();
         ParticipantEntity participantEntity = new ParticipantEntity();
@@ -96,7 +96,7 @@ class EventRepositoryTest {
 
         eventEntity.setName(EVENT_ENTITY_NAME_JAVA);
         eventEntity.setHost(savedParticipantEntity);
-        eventEntity.addInterest(eventCategoryEntity);
+        eventEntity.addEventCategory(eventCategoryEntity);
 
         EventEntity savedEventEntity = eventRepository.save(eventEntity);
         EventCategoryEntity savedEventCategoryEntity = eventCategoryRepository.save(eventCategoryEntity);
@@ -105,7 +105,7 @@ class EventRepositoryTest {
         System.out.println(savedEventCategoryEntity);
 
         //When
-        List<Long> longs = List.of(1L);
+        List<Long> longs = List.of(savedEventCategoryEntity.getId());
         List<EventEntity> byInterestsContains = eventRepository.findByCategoriesIdIn(longs);
         System.out.println(byInterestsContains);
 

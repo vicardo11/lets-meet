@@ -6,7 +6,7 @@ public class ControllerConstants {
 
     public static final String NOTIFICATIONS_URI = API_URI + "/notifications";
     public static final String EVENTS_URI = API_URI + "/events";
-    public static final String INTERESTS_URI = API_URI + "/interest";
+    public static final String EVENT_CATEGORY_URI = API_URI + "/event-categories";
     public static final String PARTICIPANTS_URI = API_URI + "/participants";
 
     public static final String EVENTS_URL = "/events";

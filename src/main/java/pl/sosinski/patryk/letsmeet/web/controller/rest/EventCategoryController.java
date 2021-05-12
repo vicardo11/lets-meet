@@ -14,10 +14,10 @@ import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.INTERESTS_URI;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_CATEGORY_URI;
 
 @RestController
-@RequestMapping(value = INTERESTS_URI)
+@RequestMapping(value = EVENT_CATEGORY_URI)
 public class EventCategoryController {
 
     private static final Logger LOGGER = Logger.getLogger(EventCategoryController.class.getName());

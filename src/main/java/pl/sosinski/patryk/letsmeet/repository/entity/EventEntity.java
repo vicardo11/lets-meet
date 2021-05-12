@@ -113,7 +113,7 @@ public class EventEntity {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public void addInterest(EventCategoryEntity eventCategoryEntity) {
+    public void addEventCategory(EventCategoryEntity eventCategoryEntity) {
         categories.add(eventCategoryEntity);
         eventCategoryEntity.addEvent(this);
     }

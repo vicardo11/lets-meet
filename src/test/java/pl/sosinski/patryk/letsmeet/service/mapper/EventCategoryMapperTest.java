@@ -8,16 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EventCategoryMapperTest {
 
-    public static final long INTEREST_ID_1 = 1L;
-    public static final String INTEREST_NAME_SPORT = "Sport";
+    public static final long EVENT_CATEGORY_ID_1 = 1L;
+    public static final String EVENT_CATEGORY_NAME_SPORT = "Sport";
 
     @Test
     void givenMapper_whenFrom_thenEntityEquals() {
         //Given
         EventCategoryMapper eventCategoryMapper = new EventCategoryMapper();
         EventCategoryModel eventCategoryModel = new EventCategoryModel();
-        eventCategoryModel.setId(INTEREST_ID_1);
-        eventCategoryModel.setName(INTEREST_NAME_SPORT);
+        eventCategoryModel.setId(EVENT_CATEGORY_ID_1);
+        eventCategoryModel.setName(EVENT_CATEGORY_NAME_SPORT);
 
         //When
         EventCategoryEntity eventCategoryEntity = eventCategoryMapper.from(eventCategoryModel);
@@ -36,8 +36,8 @@ class EventCategoryMapperTest {
         //Given
         EventCategoryMapper eventCategoryMapper = new EventCategoryMapper();
         EventCategoryEntity eventCategoryEntity = new EventCategoryEntity();
-        eventCategoryEntity.setId(INTEREST_ID_1);
-        eventCategoryEntity.setName(INTEREST_NAME_SPORT);
+        eventCategoryEntity.setId(EVENT_CATEGORY_ID_1);
+        eventCategoryEntity.setName(EVENT_CATEGORY_NAME_SPORT);
 
         //When
         EventCategoryModel eventCategoryModel = eventCategoryMapper.from(eventCategoryEntity);

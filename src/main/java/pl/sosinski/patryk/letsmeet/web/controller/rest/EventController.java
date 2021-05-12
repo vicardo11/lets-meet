@@ -42,12 +42,12 @@ public class EventController {
         return eventModels;
     }
 
-    @GetMapping(value = "/by-interest/{interestId}")
-    public List<EventModel> listByInterest(@PathVariable Long interestId) throws EventCategoryNotFoundException {
-        LOGGER.info("listByInterest(" + interestId + ")");
-        EventCategoryModel eventCategoryModel = eventCategoryService.read(interestId);
+    @GetMapping(value = "/by-event-category/{eventCategoryId}")
+    public List<EventModel> listByEventCategory(@PathVariable Long eventCategoryId) throws EventCategoryNotFoundException {
+        LOGGER.info("listByInterest(" + eventCategoryId + ")");
+        EventCategoryModel eventCategoryModel = eventCategoryService.read(eventCategoryId);
 
-        List<EventModel> eventModelsByInterest = eventService.listByInterest(eventCategoryModel);
+        List<EventModel> eventModelsByInterest = eventService.listByEventCategory(eventCategoryModel);
         LOGGER.info("listByInterest(...) = " + eventModelsByInterest);
         return eventModelsByInterest;
     }

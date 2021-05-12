@@ -17,7 +17,7 @@ class EventCategoryRepositoryTest {
     private EventCategoryRepository eventCategoryRepository;
 
     @Test
-    void givenInterestEntityAndRepository_whenSave_thenEntityNotNull() {
+    void givenEventCategoryEntityAndRepository_whenSave_thenEntityNotNull() {
         //Given
         EventCategoryEntity eventCategoryEntity = new EventCategoryEntity();
 

@@ -16,7 +16,7 @@
                 <th scope="col">Url</th>
                 <th scope="col">DateTime</th>
                 <th scope="col">Host</th>
-                <th scope="col">Interests</th>
+                <th scope="col">Categories</th>
             </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                 <td th:text="${event.url}"></td>
                 <td th:text="${#temporals.format(event.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
                 <td th:text="${event.host}"></td>
-                <td th:text="${event.getCategories}"></td>
+                <td th:text="${event.getCategories()}"></td>
             </tr>
             </tbody>
         </table>

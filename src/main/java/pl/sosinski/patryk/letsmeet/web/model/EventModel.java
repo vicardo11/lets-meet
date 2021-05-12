@@ -33,4 +33,8 @@ public class EventModel {
     @EqualsAndHashCode.Exclude
     @Singular
     private Set<EventCategoryModel> categories = new HashSet<>();
+
+    public void addEventCategory(EventCategoryModel eventCategory) {
+        categories.add(eventCategory);
+    }
 }

@@ -8,8 +8,12 @@ import pl.sosinski.patryk.letsmeet.web.model.EventModel;
 import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 import pl.sosinski.patryk.letsmeet.web.model.request.EventRequestModel;
 
+import java.util.logging.Logger;
+
 @Service
 public class EventManagerService {
+
+    private static final Logger LOGGER = Logger.getLogger(EventManagerService.class.getName());
 
     private final EventService eventService;
     private final ParticipantService participantService;
@@ -22,6 +26,8 @@ public class EventManagerService {
     }
 
     public EventModel create(EventRequestModel eventRequestModel) throws ParticipantNotFoundException, EventCategoryNotFoundException {
+        LOGGER.info("create(" + eventRequestModel + ")");
+
         String hostId = eventRequestModel.getHostId();
         String categoryId = eventRequestModel.getCategoryId();
 
@@ -30,7 +36,7 @@ public class EventManagerService {
 
         EventModel eventModel = new EventModel();
         eventModel.setHost(host);
-        eventModel.getCategories().add(category);
+        eventModel.addEventCategory(category);
         eventModel.setName(eventRequestModel.getName());
         eventModel.setDateTime(eventRequestModel.getDateTime());
         eventModel.setDurationInMinutes(eventRequestModel.getDurationInMinutes());
@@ -38,6 +44,10 @@ public class EventManagerService {
 
         EventModel createdEventModel = eventService.create(eventModel);
 
+        category.addEvent(createdEventModel);
+        eventCategoryService.update(category);
+
+        LOGGER.info("create(...) = " + createdEventModel);
         return createdEventModel;
     }
 }

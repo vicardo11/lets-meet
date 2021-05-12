@@ -62,7 +62,7 @@ public class EventWebController {
         List<ParticipantModel> participants = participantService.list();
         List<EventCategoryModel> categories = eventCategoryService.list();
 
-        modelMap.addAttribute("event", new EventModel());
+        modelMap.addAttribute("event", new EventRequestModel());
         modelMap.addAttribute("participants", participants);
         modelMap.addAttribute("categories", categories);
 

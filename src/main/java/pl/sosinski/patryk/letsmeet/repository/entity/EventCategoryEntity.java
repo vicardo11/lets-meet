@@ -15,9 +15,7 @@ public class EventCategoryEntity {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "event_event_categories",
-            joinColumns = {@JoinColumn(name = "event_category_id")},
-            inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    @JoinTable(name = "event_event_categories")
     private Set<EventEntity> events = new HashSet<>();
 
     public EventCategoryEntity() {
@@ -53,7 +51,7 @@ public class EventCategoryEntity {
 
     @Override
     public String toString() {
-        return "InterestEntity{" +
+        return "EventCategoryEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

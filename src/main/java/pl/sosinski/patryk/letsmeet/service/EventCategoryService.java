@@ -54,7 +54,7 @@ public class EventCategoryService {
         );
         EventCategoryModel eventCategoryModel = eventCategoryMapper.from(eventCategoryEntity);
 
-        LOGGER.info("read(" + interestId + ")");
+        LOGGER.info("read(...) = " + eventCategoryModel);
         return eventCategoryModel;
     }
 

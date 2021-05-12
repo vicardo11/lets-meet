@@ -130,7 +130,7 @@ public class EventEntity {
                 ", name='" + name + '\'' +
                 ", host=" + host +
                 ", participants=" + participants +
-                ", interests=" + categories +
+                ", categories=" + categories +
                 ", dateTime=" + dateTime +
                 ", url='" + url + '\'' +
                 ", durationInMinutes=" + durationInMinutes +

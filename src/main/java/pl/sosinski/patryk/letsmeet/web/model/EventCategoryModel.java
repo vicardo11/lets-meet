@@ -26,4 +26,8 @@ public class EventCategoryModel {
     public String toString() {
         return name;
     }
+
+    public void addEvent(EventModel eventModel) {
+        events.add(eventModel);
+    }
 }

@@ -20,7 +20,7 @@ public class EventCategoryMapper {
         ModelMapper modelMapper = new ModelMapper();
         EventCategoryEntity eventCategoryEntity = modelMapper.map(eventCategoryModel, EventCategoryEntity.class);
 
-        LOGGER.info("from(...)=" + eventCategoryEntity);
+        LOGGER.info("from(...) = " + eventCategoryEntity);
         return eventCategoryEntity;
     }
 
@@ -30,7 +30,7 @@ public class EventCategoryMapper {
         ModelMapper modelMapper = new ModelMapper();
         EventCategoryModel eventCategoryModel = modelMapper.map(eventCategoryEntity, EventCategoryModel.class);
 
-        LOGGER.info("from(...)=" + eventCategoryModel);
+        LOGGER.info("from(...) = " + eventCategoryModel);
 
         return eventCategoryModel;
     }

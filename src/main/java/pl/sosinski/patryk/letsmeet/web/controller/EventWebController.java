@@ -72,10 +72,11 @@ public class EventWebController {
     @PostMapping
     public String create(@ModelAttribute(name = "event")EventRequestModel eventRequestModel, HttpServletRequest request)
             throws EventCategoryNotFoundException, ParticipantNotFoundException {
-        LOGGER.info("create()");
+        LOGGER.info("create(" + eventRequestModel + ")");
 
         EventModel eventModel = eventManagerService.create(eventRequestModel);
 
+        LOGGER.info("create(...) = " + eventModel);
         return "redirect:" + EVENTS_URL;
     }
 }

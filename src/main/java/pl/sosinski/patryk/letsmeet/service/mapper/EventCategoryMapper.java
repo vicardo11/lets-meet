@@ -35,8 +35,9 @@ public class EventCategoryMapper {
         return eventCategoryModel;
     }
 
-    public List<EventCategoryModel> fromEntities(List<EventCategoryEntity> interestEntities) {
-        return interestEntities.stream()
+    public List<EventCategoryModel> fromEntities(List<EventCategoryEntity> eventCategoryEntities) {
+        LOGGER.info("fromEntities(" + eventCategoryEntities + ")");
+        return eventCategoryEntities.stream()
                 .map(this::from)
                 .collect(Collectors.toList());
     }

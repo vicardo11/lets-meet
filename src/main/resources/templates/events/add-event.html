@@ -10,26 +10,41 @@
             <form action="#" th:action="@{/events}" th:object="${event}" method="post">
                 <label for="name" th:text="#{event.add.name.label}"></label>
                 <input type="text" id="name" th:field="*{name}">
+                <p style="color: red" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}" ></p>
+
             <br>
+
                 <label for="host" th:text="#{event.add.host.label}"></label>
                 <select id="host" th:field="*{hostId}">
                     <option th:each="participant : ${participants}" th:text="${participant}" th:value="${participant.id}"></option>
                 </select>
+
             <br>
+
                 <label for="dateTime" th:text="#{event.add.dateTime.label}"></label>
                 <input type="datetime-local" id="dateTime" th:field="*{dateTime}">
+                <p style="color: red" th:if="${#fields.hasErrors('*{dateTime}')}" th:errors="*{dateTime}" ></p>
             <br>
+
                 <label for="eventCategory" th:text="#{event.add.eventCategory.label}"></label>
                 <select id="eventCategory" th:field="*{categoryId}">
                     <option th:each="category : ${categories}" th:text="${category}" th:value="${category.id}"></option>
                 </select>
+
             <br>
+
                 <label for="url" th:text="#{event.add.url.label}"></label>
                 <input type="text" id="url" th:field="*{url}">
+                <p style="color: red" th:if="${#fields.hasErrors('*{url}')}" th:errors="*{url}" ></p>
+
             <br>
+
                 <label for="durationInMinutes" th:text="#{event.add.duration.label}"></label>
                 <input type="text" id="durationInMinutes" th:field="*{durationInMinutes}">
+                <p style="color: red" th:if="${#fields.hasErrors('*{durationInMinutes}')}" th:errors="*{durationInMinutes}" ></p>
+
             <br>
+
                 <button type="submit">Save</button>
             </form>
         </div>

@@ -2,6 +2,7 @@ package pl.sosinski.patryk.letsmeet.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import pl.sosinski.patryk.letsmeet.web.model.EventModel;
 import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 import pl.sosinski.patryk.letsmeet.web.model.request.EventRequestModel;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -66,20 +67,21 @@ public class EventWebController {
     public String createView(ModelMap modelMap) {
         LOGGER.info("createView()");
 
-        List<ParticipantModel> participants = participantService.list();
-        List<EventCategoryModel> categories = eventCategoryService.list();
-
+        loadAttributesForAddingNewEvent(modelMap);
         modelMap.addAttribute(EVENT_ATTRIBUTE, new EventRequestModel());
-        modelMap.addAttribute(PARTICIPANTS_ATTRIBUTE, participants);
-        modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
 
         return ADD_EVENT_VIEW;
     }
 
     @PostMapping
-    public String create(@ModelAttribute(name = "event") EventRequestModel eventRequestModel, HttpServletRequest request)
+    public String create(@Valid @ModelAttribute(name = "event") EventRequestModel eventRequestModel, BindingResult bindingResult, ModelMap modelMap)
             throws EventCategoryNotFoundException, ParticipantNotFoundException {
         LOGGER.info("create(" + eventRequestModel + ")");
+
+        if (bindingResult.hasErrors()){
+            loadAttributesForAddingNewEvent(modelMap);
+            return ADD_EVENT_VIEW;
+        }
 
         EventModel eventModel = eventManagerService.create(eventRequestModel);
 
@@ -101,6 +103,14 @@ public class EventWebController {
 
         LOGGER.info("list() = " + events);
         return EVENTS_VIEW;
+    }
+
+    private void loadAttributesForAddingNewEvent(ModelMap modelMap) {
+        List<ParticipantModel> participants = participantService.list();
+        List<EventCategoryModel> categories = eventCategoryService.list();
+
+        modelMap.addAttribute(PARTICIPANTS_ATTRIBUTE, participants);
+        modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
     }
 
 }

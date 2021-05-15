@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.sosinski.patryk.letsmeet.core.exception.EventCategoryNotFoundException;
 import pl.sosinski.patryk.letsmeet.core.exception.ParticipantNotFoundException;
+import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.service.EventManagerService;
 import pl.sosinski.patryk.letsmeet.service.EventService;
-import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.service.ParticipantService;
-import pl.sosinski.patryk.letsmeet.web.model.EventModel;
 import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
+import pl.sosinski.patryk.letsmeet.web.model.EventModel;
 import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 import pl.sosinski.patryk.letsmeet.web.model.request.EventRequestModel;
 
@@ -21,9 +22,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.ADD_EVENT_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_URL;
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_VIEW;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.PARTICIPANTS_ATTRIBUTE;
 
 @Controller
 @RequestMapping(value = EVENTS_URL)
@@ -48,8 +53,10 @@ public class EventWebController {
         LOGGER.info("list()");
 
         List<EventModel> events = eventService.list();
+        List<EventCategoryModel> categories = eventCategoryService.list();
 
         modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
+        modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
 
         LOGGER.info("list() = " + events);
         return EVENTS_VIEW;
@@ -62,15 +69,15 @@ public class EventWebController {
         List<ParticipantModel> participants = participantService.list();
         List<EventCategoryModel> categories = eventCategoryService.list();
 
-        modelMap.addAttribute("event", new EventRequestModel());
-        modelMap.addAttribute("participants", participants);
-        modelMap.addAttribute("categories", categories);
+        modelMap.addAttribute(EVENT_ATTRIBUTE, new EventRequestModel());
+        modelMap.addAttribute(PARTICIPANTS_ATTRIBUTE, participants);
+        modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
 
-        return "/events/add-event";
+        return ADD_EVENT_VIEW;
     }
 
     @PostMapping
-    public String create(@ModelAttribute(name = "event")EventRequestModel eventRequestModel, HttpServletRequest request)
+    public String create(@ModelAttribute(name = "event") EventRequestModel eventRequestModel, HttpServletRequest request)
             throws EventCategoryNotFoundException, ParticipantNotFoundException {
         LOGGER.info("create(" + eventRequestModel + ")");
 
@@ -79,4 +86,21 @@ public class EventWebController {
         LOGGER.info("create(...) = " + eventModel);
         return "redirect:" + EVENTS_URL;
     }
+
+    @GetMapping("/by-category")
+    public String listByEventCategory(@RequestParam("eventCategoryId") Long eventCategoryId, ModelMap modelMap) throws EventCategoryNotFoundException {
+        LOGGER.info("list()");
+
+        EventCategoryModel eventCategoryModel = eventCategoryService.read(eventCategoryId);
+        List<EventModel> events = eventService.listByEventCategory(eventCategoryModel);
+
+        List<EventCategoryModel> categories = eventCategoryService.list();
+
+        modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
+        modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
+
+        LOGGER.info("list() = " + events);
+        return EVENTS_VIEW;
+    }
+
 }

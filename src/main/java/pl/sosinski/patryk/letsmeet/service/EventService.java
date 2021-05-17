@@ -47,6 +47,16 @@ public class EventService {
         return eventModelsByInterest;
     }
 
+    public List<EventModel> listByEventName(String eventModel) {
+        LOGGER.info("listByEventName(" + eventModel + ")");
+
+        List<EventEntity> eventEntitiesByName = eventRepository.findByNameContainsIgnoreCase(eventModel);
+        List<EventModel> eventModelsByName = eventMapper.fromEntities(eventEntitiesByName);
+
+        LOGGER.info("listByEventName(...) = " + eventModelsByName);
+        return eventModelsByName;
+    }
+
     public EventModel create(EventModel eventModel) {
         LOGGER.info("create(" + eventModel + ")");
 

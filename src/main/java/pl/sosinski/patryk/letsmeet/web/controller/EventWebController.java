@@ -91,7 +91,7 @@ public class EventWebController {
 
     @GetMapping("/by-category")
     public String listByEventCategory(@RequestParam("eventCategoryId") Long eventCategoryId, ModelMap modelMap) throws EventCategoryNotFoundException {
-        LOGGER.info("list()");
+        LOGGER.info("listByEventCategory()");
 
         EventCategoryModel eventCategoryModel = eventCategoryService.read(eventCategoryId);
         List<EventModel> events = eventService.listByEventCategory(eventCategoryModel);
@@ -101,7 +101,21 @@ public class EventWebController {
         modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
         modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
 
-        LOGGER.info("list() = " + events);
+        LOGGER.info("listByEventCategory() = " + events);
+        return EVENTS_VIEW;
+    }
+
+    @GetMapping("/by-name")
+    public String listByEventName(@RequestParam("eventName") String eventName, ModelMap modelMap) throws EventCategoryNotFoundException {
+        LOGGER.info("listByEventName()");
+
+        List<EventModel> events = eventService.listByEventName(eventName);
+        List<EventCategoryModel> categories = eventCategoryService.list();
+
+        modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
+        modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
+
+        LOGGER.info("listByEventName() = " + events);
         return EVENTS_VIEW;
     }
 

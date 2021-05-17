@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "INTERESTS")
-public class InterestEntity {
+@Table(name = "EVENT_CATEGORIES")
+public class EventCategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,12 +15,10 @@ public class InterestEntity {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "events_interests",
-            joinColumns = {@JoinColumn(name = "interest_id")},
-            inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    @JoinTable(name = "event_event_categories")
     private Set<EventEntity> events = new HashSet<>();
 
-    public InterestEntity() {
+    public EventCategoryEntity() {
     }
 
     public Long getId() {
@@ -53,7 +51,7 @@ public class InterestEntity {
 
     @Override
     public String toString() {
-        return "InterestEntity{" +
+        return "EventCategoryEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

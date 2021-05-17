@@ -5,9 +5,9 @@ import pl.sosinski.patryk.letsmeet.core.exception.EventNotFoundException;
 import pl.sosinski.patryk.letsmeet.repository.EventRepository;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
 import pl.sosinski.patryk.letsmeet.service.mapper.EventMapper;
-import pl.sosinski.patryk.letsmeet.service.mapper.InterestMapper;
+import pl.sosinski.patryk.letsmeet.service.mapper.EventCategoryMapper;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
-import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
+import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +21,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
 
-    public EventService(EventRepository eventRepository, EventMapper eventMapper, InterestMapper interestMapper) {
+    public EventService(EventRepository eventRepository, EventMapper eventMapper, EventCategoryMapper eventCategoryMapper) {
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
     }
@@ -36,11 +36,11 @@ public class EventService {
         return eventModels;
     }
 
-    public List<EventModel> listByInterest(InterestModel interestModel) {
-        LOGGER.info("listByInterest(" + interestModel + ")");
+    public List<EventModel> listByEventCategory(EventCategoryModel eventCategoryModel) {
+        LOGGER.info("listByInterest(" + eventCategoryModel + ")");
 
-        List<Long> ids = List.of(interestModel.getId());
-        List<EventEntity> eventEntitiesByInterest = eventRepository.findByInterestsIdIn(ids);
+        List<Long> ids = List.of(eventCategoryModel.getId());
+        List<EventEntity> eventEntitiesByInterest = eventRepository.findByCategoriesIdIn(ids);
         List<EventModel> eventModelsByInterest = eventMapper.fromEntities(eventEntitiesByInterest);
 
         LOGGER.info("listByInterest(...) = " + eventModelsByInterest);

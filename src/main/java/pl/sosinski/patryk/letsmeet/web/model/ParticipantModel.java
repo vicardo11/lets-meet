@@ -2,12 +2,16 @@ package pl.sosinski.patryk.letsmeet.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.Singular;
 
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +23,13 @@ public class ParticipantModel {
     private short age;
     private String email;
     private String password;
-    private Set<EventModel> hostedEvents;
-    private Set<EventModel> participatedEvents;
+    @Singular
+    private final Set<EventModel> hostedEvents = new HashSet<>();
+    @Singular
+    private final Set<EventModel> participatedEvents = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }

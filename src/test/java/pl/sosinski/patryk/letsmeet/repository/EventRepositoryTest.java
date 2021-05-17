@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sosinski.patryk.letsmeet.repository.entity.EventEntity;
-import pl.sosinski.patryk.letsmeet.repository.entity.InterestEntity;
+import pl.sosinski.patryk.letsmeet.repository.entity.EventCategoryEntity;
 import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
 
 import java.util.HashSet;
@@ -30,7 +30,7 @@ class EventRepositoryTest {
     private ParticipantRepository participantRepository;
 
     @Autowired
-    private InterestRepository interestRepository;
+    private EventCategoryRepository eventCategoryRepository;
 
     @Test
     void givenEventEntityAndRepository_whenSave_thenSavedEntityNotNull() {
@@ -84,29 +84,29 @@ class EventRepositoryTest {
     }
 
     @Test
-    void givenEventEntityAndInterest_whenFindByInterestId_thenFoundEventListSizeEqualsOne() {
+    void givenEventEntityAndEventCategory_whenFindByEventCategoryId_thenFoundEventListSizeEqualsOne() {
         //Given
         EventEntity eventEntity = new EventEntity();
         ParticipantEntity participantEntity = new ParticipantEntity();
         ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
 
-        InterestEntity interestEntity = new InterestEntity();
-        interestEntity.setName("Programowanie");
-        interestEntity.addEvent(eventEntity);
+        EventCategoryEntity eventCategoryEntity = new EventCategoryEntity();
+        eventCategoryEntity.setName("Programowanie");
+        eventCategoryEntity.addEvent(eventEntity);
 
         eventEntity.setName(EVENT_ENTITY_NAME_JAVA);
         eventEntity.setHost(savedParticipantEntity);
-        eventEntity.addInterest(interestEntity);
+        eventEntity.addEventCategory(eventCategoryEntity);
 
         EventEntity savedEventEntity = eventRepository.save(eventEntity);
-        InterestEntity savedInterestEntity = interestRepository.save(interestEntity);
+        EventCategoryEntity savedEventCategoryEntity = eventCategoryRepository.save(eventCategoryEntity);
 
         System.out.println(savedEventEntity);
-        System.out.println(savedInterestEntity);
+        System.out.println(savedEventCategoryEntity);
 
         //When
-        List<Long> longs = List.of(1L);
-        List<EventEntity> byInterestsContains = eventRepository.findByInterestsIdIn(longs);
+        List<Long> longs = List.of(savedEventCategoryEntity.getId());
+        List<EventEntity> byInterestsContains = eventRepository.findByCategoriesIdIn(longs);
         System.out.println(byInterestsContains);
 
         //Then

@@ -8,60 +8,60 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.sosinski.patryk.letsmeet.service.InterestService;
-import pl.sosinski.patryk.letsmeet.web.model.InterestModel;
+import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
+import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.INTERESTS_URI;
+import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_CATEGORY_URI;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class InterestControllerTest {
+class EventCategoryControllerTest {
 
-    public static final long INTEREST_ID_1 = 1L;
-    public static final String INTEREST_NAME_SPORT = "Sport";
+    public static final long EVENT_CATEGORY_ID_1 = 1L;
+    public static final String EVENT_CATEGORY_NAME_SPORT = "Sport";
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private InterestService interestService;
+    private EventCategoryService eventCategoryService;
 
     @Test
-    void givenInterestUriAndInterestId_whenGet_thenStatusIsOk() throws Exception {
+    void givenEventCategoryUriAndEventCategoryId_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
         //When
-        mockMvc.perform(get(INTERESTS_URI + "/" + INTEREST_ID_1))
+        mockMvc.perform(get(EVENT_CATEGORY_URI + "/" + EVENT_CATEGORY_ID_1))
                 .andDo(print())
                 .andExpect(status().isOk());
         //Then
     }
 
     @Test
-    void givenInterestUri_whenGet_thenStatusIsOk() throws Exception {
+    void givenEventCategoryUri_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
         //When
-        mockMvc.perform(get(INTERESTS_URI))
+        mockMvc.perform(get(EVENT_CATEGORY_URI))
                 .andDo(print())
                 .andExpect(status().isOk());
         //Then
     }
 
     @Test
-    void givenInterestUri_whenPost_thenStatusIsOk() throws Exception {
+    void givenEventCategoryUri_whenPost_thenStatusIsOk() throws Exception {
         //Given
-        InterestModel interestModel = new InterestModel();
+        EventCategoryModel eventCategoryModel = new EventCategoryModel();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String valueAsString = objectMapper.writeValueAsString(interestModel);
+        String valueAsString = objectMapper.writeValueAsString(eventCategoryModel);
 
         //When
-        mockMvc.perform(post(INTERESTS_URI)
+        mockMvc.perform(post(EVENT_CATEGORY_URI)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(valueAsString))
                 .andDo(print())
@@ -70,18 +70,18 @@ class InterestControllerTest {
     }
 
     @Test
-    void givenInterestUri_whenPut_thenStatusIsOk() throws Exception {
+    void givenEventCategoryUri_whenPut_thenStatusIsOk() throws Exception {
         //Given
-        InterestModel interestModel = InterestModel.builder()
-                .id(INTEREST_ID_1)
-                .name(INTEREST_NAME_SPORT)
+        EventCategoryModel eventCategoryModel = EventCategoryModel.builder()
+                .id(EVENT_CATEGORY_ID_1)
+                .name(EVENT_CATEGORY_NAME_SPORT)
                 .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String interestModelAsString = objectMapper.writeValueAsString(interestModel);
+        String interestModelAsString = objectMapper.writeValueAsString(eventCategoryModel);
 
         //When
-        mockMvc.perform(put(INTERESTS_URI + "/" + INTEREST_ID_1)
+        mockMvc.perform(put(EVENT_CATEGORY_URI + "/" + EVENT_CATEGORY_ID_1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(interestModelAsString))
                 .andDo(print())

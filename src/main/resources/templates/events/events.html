@@ -25,6 +25,15 @@
                     <button class="btn btn-primary" type="submit">Find</button>
                 </form>
             </div>
+
+            <div class="col-sm">
+                <form action="#" th:action="@{/events/by-name}" method="GET">
+                    <label for="eventName" th:text="#{events.eventName.label}"></label>
+                    <input type="text" id="eventName" th:name="eventName">
+                    <button class="btn btn-primary" type="submit">Find</button>
+                </form>
+            </div>
+
             <div class="col-sm">
                 <form th:action="@{/events}">
                     <input class="btn btn-primary" type="submit" value="All events"/>

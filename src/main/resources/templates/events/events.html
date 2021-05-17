@@ -13,24 +13,26 @@
 
 
     <!------------------------------Buttons---------------------------------------->
-    <div>
-        <form action="#" th:action="@{/events/by-category}" method="GET">
-            <label for="eventCategory" th:text="#{events.eventCategory.label}"></label>
-            <select id="eventCategory" th:name="eventCategoryId">
-                <option th:each="category : ${categories}" th:text="${category.name}"
-                        th:value="${category.id}"></option>
-            </select>
-            <button type="submit">Find</button>
-        </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <form action="#" th:action="@{/events/by-category}" method="GET">
+                    <label for="eventCategory" th:text="#{events.eventCategory.label}"></label>
+                    <select id="eventCategory" th:name="eventCategoryId">
+                        <option th:each="category : ${categories}" th:text="${category.name}"
+                                th:value="${category.id}"></option>
+                    </select>
+                    <button class="btn btn-primary" type="submit">Find</button>
+                </form>
+            </div>
+            <div class="col-sm">
+                <form th:action="@{/events}">
+                    <input class="btn btn-primary" type="submit" value="All events"/>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-
-
-    <div>
-        <form th:action="@{/events}">
-            <input type="submit" value="All events" />
-        </form>
-    </div>
 
 <!------------------------------Table---------------------------------------->
 <div class="container-fluid">
@@ -53,7 +55,7 @@
             <td th:text="${event.host}"></td>
             <td th:text="${event.getCategories()}"></td>
             <td>
-                <a th:text="Delete" th:href="@{/events/delete(eventId=${event.id})}"></a>
+                <a class="btn btn-danger" th:text="Delete" th:href="@{/events/delete(eventId=${event.id})}"></a>
             </td>
         </tr>
         </tbody>
@@ -63,7 +65,9 @@
 <!------------------------------Add new event---------------------------------------->
 
 <div>
-    <a href="/events/add">Add event</a>
+    <form th:action="@{/events/add}">
+        <input class="btn btn-primary" type="submit" value="Add new event"/>
+    </form>
 </div>
 </body>
 </html>

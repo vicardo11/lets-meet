@@ -42,6 +42,7 @@
             <th scope="col">DateTime</th>
             <th scope="col">Host</th>
             <th scope="col">Categories</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -51,6 +52,9 @@
             <td th:text="${#temporals.format(event.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
             <td th:text="${event.host}"></td>
             <td th:text="${event.getCategories()}"></td>
+            <td>
+                <a th:text="Delete" th:href="@{/events/delete(eventId=${event.id})}"></a>
+            </td>
         </tr>
         </tbody>
     </table>

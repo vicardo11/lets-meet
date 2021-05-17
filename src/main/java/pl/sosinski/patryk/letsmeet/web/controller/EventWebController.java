@@ -105,6 +105,16 @@ public class EventWebController {
         return EVENTS_VIEW;
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("eventId") Long eventId) {
+        LOGGER.info("delete(" + eventId + ")");
+
+        eventService.delete(eventId);
+
+        LOGGER.info("delete(...)");
+        return "redirect:" + EVENTS_URL;
+    }
+
     private void loadAttributesForAddingNewEvent(ModelMap modelMap) {
         List<ParticipantModel> participants = participantService.list();
         List<EventCategoryModel> categories = eventCategoryService.list();

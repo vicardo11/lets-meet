@@ -7,6 +7,9 @@
 <body>
     <div>
         <div>
+            <form th:action="@{/events}">
+                <input type="submit" value="Back to all events" />
+            </form>
             <form action="#" th:action="@{/events}" th:object="${event}" method="post">
                 <label for="name" th:text="#{event.add.name.label}"></label>
                 <input type="text" id="name" th:field="*{name}">

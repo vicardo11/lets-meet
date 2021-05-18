@@ -28,7 +28,7 @@ public class EventService {
 
     public List<EventModel> list() {
         LOGGER.info("list()");
-        List<EventEntity> eventEntities = eventRepository.findAll();
+        List<EventEntity> eventEntities = eventRepository.findAllByOrderByDateTime();
 
         List<EventModel> eventModels = eventMapper.fromEntities(eventEntities);
 
@@ -40,7 +40,7 @@ public class EventService {
         LOGGER.info("listByInterest(" + eventCategoryModel + ")");
 
         List<Long> ids = List.of(eventCategoryModel.getId());
-        List<EventEntity> eventEntitiesByInterest = eventRepository.findByCategoriesIdIn(ids);
+        List<EventEntity> eventEntitiesByInterest = eventRepository.findByCategoriesIdInOrderByDateTime(ids);
         List<EventModel> eventModelsByInterest = eventMapper.fromEntities(eventEntitiesByInterest);
 
         LOGGER.info("listByInterest(...) = " + eventModelsByInterest);
@@ -50,7 +50,7 @@ public class EventService {
     public List<EventModel> listByEventName(String eventModel) {
         LOGGER.info("listByEventName(" + eventModel + ")");
 
-        List<EventEntity> eventEntitiesByName = eventRepository.findByNameContainsIgnoreCase(eventModel);
+        List<EventEntity> eventEntitiesByName = eventRepository.findByNameContainsIgnoreCaseOrderByDateTime(eventModel);
         List<EventModel> eventModelsByName = eventMapper.fromEntities(eventEntitiesByName);
 
         LOGGER.info("listByEventName(...) = " + eventModelsByName);

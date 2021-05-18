@@ -106,7 +106,7 @@ class EventRepositoryTest {
 
         //When
         List<Long> longs = List.of(savedEventCategoryEntity.getId());
-        List<EventEntity> byInterestsContains = eventRepository.findByCategoriesIdIn(longs);
+        List<EventEntity> byInterestsContains = eventRepository.findByCategoriesIdInOrderByDateTime(longs);
         System.out.println(byInterestsContains);
 
         //Then

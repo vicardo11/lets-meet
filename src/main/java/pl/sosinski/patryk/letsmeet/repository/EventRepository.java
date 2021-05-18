@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<EventEntity, Long> {
 
-    List<EventEntity> findByCategoriesIdIn(List<Long> ids);
-    List<EventEntity> findByNameContainsIgnoreCase(String eventName);
+    List<EventEntity> findByCategoriesIdInOrderByDateTime(List<Long> ids);
+    List<EventEntity> findByNameContainsIgnoreCaseOrderByDateTime(String eventName);
+    List<EventEntity> findAllByOrderByDateTime();
 
 }

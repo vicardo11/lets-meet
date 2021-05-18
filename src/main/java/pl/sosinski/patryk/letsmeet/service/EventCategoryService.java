@@ -26,7 +26,7 @@ public class EventCategoryService {
 
     public List<EventCategoryModel> list() {
         LOGGER.info("list()");
-        List<EventCategoryEntity> interestEntities = eventCategoryRepository.findAll();
+        List<EventCategoryEntity> interestEntities = eventCategoryRepository.findAllByOrderByName();
 
         List<EventCategoryModel> eventCategoryModels = eventCategoryMapper.fromEntities(interestEntities);
 

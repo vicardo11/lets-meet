@@ -30,7 +30,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstant
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.NOTIFICATIONS_URI;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class EventControllerTest {
 
     public static final int EVENT_MODELS_SIZE_2 = 2;

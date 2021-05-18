@@ -27,7 +27,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstant
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.SEARCH_EVENT_BY_CATEGORY_URL;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class EventWebControllerTest {
 
     public static final String CONTENT_STRING_EVENTS_LIST = "Events list";

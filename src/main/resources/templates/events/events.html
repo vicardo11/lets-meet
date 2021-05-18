@@ -8,14 +8,13 @@
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 <body>
-<div>
-    <h1>Events list</h1>
-
+<div style="margin: 25px">
+    <h1 style="text-align: center; margin: 25px">Events list</h1>
 
     <!------------------------------Buttons---------------------------------------->
     <div class="container">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-auto">
                 <form action="#" th:action="@{/events/by-category}" method="GET">
                     <label for="eventCategory" th:text="#{events.eventCategory.label}"></label>
                     <select id="eventCategory" th:name="eventCategoryId">
@@ -26,7 +25,7 @@
                 </form>
             </div>
 
-            <div class="col-sm">
+            <div class="col-sm-auto">
                 <form action="#" th:action="@{/events/by-name}" method="GET">
                     <label for="eventName" th:text="#{events.eventName.label}"></label>
                     <input type="text" id="eventName" th:name="eventName">
@@ -34,7 +33,7 @@
                 </form>
             </div>
 
-            <div class="col-sm">
+            <div class="col-sm-auto">
                 <form th:action="@{/events}">
                     <input class="btn btn-primary" type="submit" value="All events"/>
                 </form>
@@ -44,39 +43,41 @@
 </div>
 
 <!------------------------------Table---------------------------------------->
-<div class="container-fluid">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Event name</th>
-            <th scope="col">Url</th>
-            <th scope="col">DateTime</th>
-            <th scope="col">Host</th>
-            <th scope="col">Categories</th>
-            <th scope="col">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="event : ${events}">
-            <td th:text="${event.name}"></td>
-            <td th:text="${event.url}"></td>
-            <td th:text="${#temporals.format(event.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
-            <td th:text="${event.host}"></td>
-            <td th:text="${event.getCategories()}"></td>
-            <td>
-                <a class="btn btn-danger" th:text="Delete" th:href="@{/events/delete(eventId=${event.id})}"></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<div style="margin: 50px">
+    <div class="container-fluid">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Event name</th>
+                <th scope="col">Url</th>
+                <th scope="col">DateTime</th>
+                <th scope="col">Host</th>
+                <th scope="col">Categories</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="event : ${events}">
+                <td th:text="${event.name}"></td>
+                <td th:text="${event.url}"></td>
+                <td th:text="${#temporals.format(event.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${event.host}"></td>
+                <td th:text="${event.getCategories()}"></td>
+                <td>
+                    <a class="btn btn-danger" th:text="Delete" th:href="@{/events/delete(eventId=${event.id})}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-<!------------------------------Add new event---------------------------------------->
+    <!------------------------------Add new event---------------------------------------->
 
-<div>
-    <form th:action="@{/events/add}">
-        <input class="btn btn-primary" type="submit" value="Add new event"/>
-    </form>
+    <div>
+        <form th:action="@{/events/add}">
+            <input class="btn btn-primary" type="submit" value="Add new event"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>

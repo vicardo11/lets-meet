@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_CATEGORY_URI;
 
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 class EventCategoryControllerTest {
 
     public static final long EVENT_CATEGORY_ID_1 = 1L;
@@ -31,6 +32,7 @@ class EventCategoryControllerTest {
     private EventCategoryService eventCategoryService;
 
     @Test
+    @WithMockUser(username = "user")
     void givenEventCategoryUriAndEventCategoryId_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -42,6 +44,7 @@ class EventCategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventCategoryUri_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -53,6 +56,7 @@ class EventCategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventCategoryUri_whenPost_thenStatusIsOk() throws Exception {
         //Given
         EventCategoryModel eventCategoryModel = new EventCategoryModel();
@@ -70,6 +74,7 @@ class EventCategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventCategoryUri_whenPut_thenStatusIsOk() throws Exception {
         //Given
         EventCategoryModel eventCategoryModel = EventCategoryModel.builder()

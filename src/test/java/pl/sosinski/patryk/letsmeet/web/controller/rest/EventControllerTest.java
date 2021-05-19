@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.sosinski.patryk.letsmeet.service.EventService;
@@ -30,7 +31,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstant
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.NOTIFICATIONS_URI;
 
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 class EventControllerTest {
 
     public static final int EVENT_MODELS_SIZE_2 = 2;
@@ -44,6 +45,7 @@ class EventControllerTest {
     private EventService eventService;
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventsUri_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -56,6 +58,7 @@ class EventControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventsUriAndEventModels_whenGet_thenEventModelsSizeEqualToTwo() throws Exception {
         //Given
         List<EventModel> eventModels = Arrays.asList(
@@ -84,6 +87,7 @@ class EventControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventsUriAndEventId_whenGet_thenStatusIsOk() throws Exception {
         //Given
         EventModel eventModel = EventModel.builder()
@@ -100,6 +104,7 @@ class EventControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventsUriAndEventId_whenGet_thenEventModelNotNull() throws Exception {
         //Given
         EventModel eventModel = EventModel.builder()
@@ -125,6 +130,7 @@ class EventControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventsUri_whenPost_thenStatusIsOk() throws Exception {
         //Given
         EventModel eventModel = EventModel.builder()
@@ -146,6 +152,7 @@ class EventControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenEventsUri_whenPut_thenStatusIsOk() throws Exception {
         //Given
         EventModel eventModel = EventModel.builder()

@@ -21,7 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.dataSource = dataSource;
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -29,7 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
+        auth
+//                .userDetailsService()
+                .jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(
                         "SELECT email, password, 'true' AS enabled FROM participants where email=?")
@@ -50,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticated()
                 .and()
                     .formLogin()
+//                    .loginPage("Widok z templates")
                     .defaultSuccessUrl("/events", true)
                     .permitAll();
     }

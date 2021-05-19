@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.sosinski.patryk.letsmeet.service.ParticipantService;
 import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.PARTICIPANTS_URI;
 
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 class ParticipantControllerTest {
 
     public static final long PARTICIPANT_ID_1 = 1L;
@@ -34,6 +35,7 @@ class ParticipantControllerTest {
     private ParticipantService participantService;
 
     @Test
+    @WithMockUser(username = "name")
     void givenParticipantsUri_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -45,6 +47,7 @@ class ParticipantControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenParticipantsUriAndId_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -57,6 +60,7 @@ class ParticipantControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenParticipant_whenGet_thenParticipantFieldsCorrect() throws Exception {
         //Given
         ParticipantModel participantModel = ParticipantModel.builder()
@@ -77,6 +81,7 @@ class ParticipantControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenParticipantUriAndParticipant_whenPost_thenStatusIsOk() throws Exception {
         //Given
         ParticipantModel participantModel = ParticipantModel.builder()
@@ -97,6 +102,7 @@ class ParticipantControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenParticipantsUriAndParticipant_whenPut_thenStatusIsOk() throws Exception {
         //Given
         ParticipantModel participantModel = ParticipantModel.builder()

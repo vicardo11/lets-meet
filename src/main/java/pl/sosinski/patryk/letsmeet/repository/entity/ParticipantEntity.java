@@ -18,6 +18,7 @@ public class ParticipantEntity {
 
     private short age;
 
+    @Column(unique = true)
     private String email;
 
     private String password;

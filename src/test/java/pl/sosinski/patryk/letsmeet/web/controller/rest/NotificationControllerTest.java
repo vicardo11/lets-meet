@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.sosinski.patryk.letsmeet.service.NotificationService;
@@ -43,6 +44,7 @@ class NotificationControllerTest {
     private NotificationService notificationService;
 
     @Test
+    @WithMockUser(username = "name")
     void givenUriNotifications_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -57,6 +59,7 @@ class NotificationControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenUriNotifications_whenGet_thenNotificationModelsSizeEqualTwo() throws Exception {
         //Given
         List<NotificationModel> notificationModels = Arrays.asList(
@@ -84,6 +87,7 @@ class NotificationControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenUriNotificationsWithId_whenGet_thenStatusIsOk() throws Exception {
         //Given
         NotificationModel notificationModel = new NotificationModel();
@@ -109,6 +113,7 @@ class NotificationControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenUriNotificationsWithNotificationModel_whenPost_thenStatusIsOK() throws Exception {
         //Given
         NotificationModel notificationModel = new NotificationModel();
@@ -126,6 +131,7 @@ class NotificationControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenUriNotificationsAndNotificationModel_whenPost_thenCreatedNotificationModelNotNull() throws Exception {
         //Given
         NotificationModel notificationModel = NotificationModel.builder()
@@ -156,6 +162,7 @@ class NotificationControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "name")
     void givenUriNotificationsWithIdAndNotificationModel_whenPut_thenStatusIsOk() throws Exception {
         //Given
         NotificationModel notificationModel = NotificationModel.builder()

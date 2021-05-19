@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.service.EventService;
@@ -40,6 +41,7 @@ class EventWebControllerTest {
     private EventService eventService;
 
     @Test
+    @WithMockUser(username = "user")
     void givenEventsUrl_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -51,6 +53,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenEventsUrl_whenGet_thenViewNameCorrect() throws Exception {
         //Given
 
@@ -64,6 +67,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenEventsUrl_whenGet_thenEventsAttributeExists() throws Exception {
         //Given
 
@@ -77,6 +81,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenEventsUrl_whenGet_thenContentContainsEventsListString() throws Exception {
         //Given
 
@@ -90,6 +95,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenAddEventUrl_whenGet_thenStatusIsOk() throws Exception {
         //Given
 
@@ -101,6 +107,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenAddEventUrl_whenGet_thenViewNameCorrect() throws Exception {
         //Given
 
@@ -114,6 +121,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenAddEventUrl_whenGet_thenParticipantsAttributeExists() throws Exception {
         //Given
 
@@ -127,6 +135,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenAddEventUrl_whenGet_thenEventAttributeExists() throws Exception {
         //Given
 
@@ -140,6 +149,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenAddEventUrl_whenGet_thenEventCategoriesAttributeExists() throws Exception {
         //Given
 
@@ -153,6 +163,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenAddEventUrl_whenGetByEventCategory_thenStatusIsOk() throws Exception {
         //Given
 
@@ -166,6 +177,7 @@ class EventWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void givenAddEventUrl_whenGetByEventCategory_thenViewNameCorrect() throws Exception {
         //Given
 

@@ -1,6 +1,7 @@
 package pl.sosinski.patryk.letsmeet.service;
 
 import org.springframework.stereotype.Service;
+import pl.sosinski.patryk.letsmeet.core.exception.EmailAlreadyExistsException;
 import pl.sosinski.patryk.letsmeet.core.exception.ParticipantNotFoundException;
 import pl.sosinski.patryk.letsmeet.repository.ParticipantRepository;
 import pl.sosinski.patryk.letsmeet.repository.entity.ParticipantEntity;
@@ -76,5 +77,25 @@ public class ParticipantService {
         participantRepository.delete(participantEntity);
 
         LOGGER.info("delete(...) = " + participantModel);
+    }
+
+
+    public ParticipantModel registerNewParticipant(ParticipantModel participantModel) throws EmailAlreadyExistsException {
+        LOGGER.info("registerNewParticipant(" + participantModel + ")");
+
+        if(emailExists(participantModel.getEmail())) {
+            throw new EmailAlreadyExistsException("There is an account with email address: " + participantModel.getEmail());
+        }
+
+        ParticipantEntity participantEntity = participantMapper.from(participantModel);
+        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
+        ParticipantModel savedParticipantModel = participantMapper.from(savedParticipantEntity);
+
+        LOGGER.info("registerNewParticipant(...)" + savedParticipantModel);
+        return savedParticipantModel;
+    }
+
+    private boolean emailExists(String email) {
+        return participantRepository.findByEmail(email) != null;
     }
 }

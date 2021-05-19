@@ -9,16 +9,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
+//    private final DataSource dataSource;
+//
+//    public SecurityConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
 
-    public SecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    private final LetsMeetUserDetailsService letsMeetUserDetailsService;
+
+    public SecurityConfig(LetsMeetUserDetailsService letsMeetUserDetailsService) {
+        this.letsMeetUserDetailsService = letsMeetUserDetailsService;
     }
 
     @Bean
@@ -29,13 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-//                .userDetailsService()
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "SELECT email, password, 'true' AS enabled FROM participants where email=?")
-                .authoritiesByUsernameQuery(
-                        "SELECT email, 'ROLE_USER' FROM participants where email=?")
+                .userDetailsService(letsMeetUserDetailsService)
+//                .jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery(
+//                        "SELECT email, password, 'true' AS enabled FROM participants where email=?")
+//                .authoritiesByUsernameQuery(
+//                        "SELECT email, 'ROLE_USER' FROM participants where email=?")
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
@@ -52,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
 //                    .loginPage("Widok z templates")
-                    .defaultSuccessUrl("/events", true)
+//                    .defaultSuccessUrl("/events", true)
                     .permitAll();
     }
 }

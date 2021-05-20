@@ -16,14 +16,6 @@
             </div>
 
             <div class="form-group-row">
-                <label class="col-sm-2 col-form-label" for="host" th:text="#{event.add.host.label}"></label>
-                <select id="host" th:field="*{hostId}">
-                    <option th:each="participant : ${participants}" th:text="${participant}"
-                            th:value="${participant.id}"></option>
-                </select>
-            </div>
-
-            <div class="form-group-row">
                 <label class="col-sm-2 col-form-label" for="dateTime" th:text="#{event.add.dateTime.label}"></label>
                 <input type="datetime-local" id="dateTime" th:field="*{dateTime}">
                 <p style="color: red" th:if="${#fields.hasErrors('*{dateTime}')}" th:errors="*{dateTime}"></p>

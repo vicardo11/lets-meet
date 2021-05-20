@@ -25,7 +25,6 @@ public class EventRequestModel {
     private Long id;
     @Pattern(regexp = "^[A-Z].{3,}", message = "Event name must start with capital letter and has minimum 3 characters")
     private String name;
-    @NotNull
     private String hostId;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Future(message = "Must be in the future")

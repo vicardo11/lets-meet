@@ -23,13 +23,13 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.ADD_EVENT_VIEW;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_URL;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_VIEW;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.PARTICIPANTS_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.ADD_EVENT_VIEW;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_URL;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANTS_ATTRIBUTE;
 
 @Controller
 @RequestMapping(value = EVENTS_URL)

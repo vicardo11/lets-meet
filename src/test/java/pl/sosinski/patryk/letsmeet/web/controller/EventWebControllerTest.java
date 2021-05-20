@@ -17,15 +17,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.ADD_EVENT_URL;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.ADD_EVENT_VIEW;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_URL;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_VIEW;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.PARTICIPANTS_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.SEARCH_EVENT_BY_CATEGORY_URL;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.ADD_EVENT_URL;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.ADD_EVENT_VIEW;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_URL;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANTS_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.SEARCH_EVENT_BY_CATEGORY_URL;
 
 @SpringBootTest
 @AutoConfigureMockMvc

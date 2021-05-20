@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -143,6 +144,7 @@ class EventControllerTest {
 
         //When
         mockMvc.perform(post(EVENTS_URI)
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(valueAsString))
                 .andDo(print())
@@ -165,6 +167,7 @@ class EventControllerTest {
 
         //When
         mockMvc.perform(put(NOTIFICATIONS_URI + "/" + EVENT_ID_1)
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(valueAsString))
                 .andDo(print())

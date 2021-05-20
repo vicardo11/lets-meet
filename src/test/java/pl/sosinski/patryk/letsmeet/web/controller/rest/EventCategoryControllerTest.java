@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -66,6 +67,7 @@ class EventCategoryControllerTest {
 
         //When
         mockMvc.perform(post(EVENT_CATEGORY_URI)
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(valueAsString))
                 .andDo(print())
@@ -87,6 +89,7 @@ class EventCategoryControllerTest {
 
         //When
         mockMvc.perform(put(EVENT_CATEGORY_URI + "/" + EVENT_CATEGORY_ID_1)
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(interestModelAsString))
                 .andDo(print())

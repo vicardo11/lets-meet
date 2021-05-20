@@ -15,7 +15,6 @@ public class EventCategoryEntity {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "event_event_categories")
     private Set<EventEntity> events = new HashSet<>();
 
     public EventCategoryEntity() {

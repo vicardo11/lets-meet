@@ -22,4 +22,8 @@ public class ParticipantRequestModel {
     @NotNull
     @NotEmpty(message = "Can't be empty")
     private String password;
+    @NotEmpty
+    private String firstName;
+    @NotEmpty
+    private String lastName;
 }

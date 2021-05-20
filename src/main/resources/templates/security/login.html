@@ -3,31 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel='stylesheet' type="text/css" href='/webjars/bootstrap/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/webjars/bootstrap/css/bootstrap.min.css'>
 </head>
 <body>
 <div class="container">
     <div class="row justify-content-center mt-5">
         <h1 th:text="#{participant.login.form.label}">login</h1>
 
-        <form th:action="@{/login}" method="POST">
+        <div th:if="${param.logout}" class="alert alert-danger">
+            You have been logged out.
+        </div>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid email or password.
+        </div>
+
+        <form name="f" th:action="@{/authenticateTheUser}" method="POST">
             <div class="form-group-row">
                 <label for="username" class="col-sm-2 col-form-label" th:text="#{participant.email.label}">email</label>
                 <input id="username" type="email" name="username"/>
             </div>
+
             <div class="form-group-row">
                 <label for="password" class="col-sm-2 col-form-label" th:text="#{participant.password.label}">password</label>
                 <input id="password" type="password" name="password"/>
             </div>
-            <div th:if="${param.error}" class="alert alert-danger">
-                Invalid email or password.
-            </div>
-            <div th:if="${param.logout}" class="alert alert-error">
-                You have been logged out.
-            </div>
             <button class="btn btn-primary" type="submit" th:text="#{participant.login.button.label}">login</button>
         </form>
+
         <a th:href="@{/participants/registration}" th:text="#{label.form.registerLink}">register</a>
+
     </div>
 </div>
 </body>

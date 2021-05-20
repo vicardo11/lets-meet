@@ -49,6 +49,6 @@ public class ParticipantWebController {
         ParticipantModel createdParticipantModel = participantManagerService.create(participantRequestModel);
 
         LOGGER.info("registerNewParticipant(...) = " + createdParticipantModel);
-        return "redirect:/login";
+        return "redirect:/loginPage";
     }
 }

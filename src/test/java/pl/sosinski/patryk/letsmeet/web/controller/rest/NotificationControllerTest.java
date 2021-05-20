@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -123,6 +124,7 @@ class NotificationControllerTest {
 
         //When
         mockMvc.perform(post(NOTIFICATIONS_URI)
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isOk());
@@ -145,7 +147,8 @@ class NotificationControllerTest {
         //When
         when(notificationService.create(notificationModel)).thenReturn(notificationModel);
         MvcResult mvcResult = mockMvc.perform(post(NOTIFICATIONS_URI)
-                    .contentType(MediaType.APPLICATION_JSON)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
                     .content(json))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -176,7 +179,8 @@ class NotificationControllerTest {
         //When
         when(notificationService.update(notificationModel)).thenReturn(notificationModel);
         mockMvc.perform(put(NOTIFICATIONS_URI + "/" + NOTIFICATION_ID_1)
-                        .contentType(MediaType.APPLICATION_JSON)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk());
         //Then

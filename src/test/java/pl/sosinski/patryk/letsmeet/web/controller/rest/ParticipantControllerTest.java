@@ -13,6 +13,7 @@ import pl.sosinski.patryk.letsmeet.service.ParticipantService;
 import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -94,6 +95,7 @@ class ParticipantControllerTest {
 
         //When
         mockMvc.perform(post(PARTICIPANTS_URI)
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(participantAsString))
                 .andDo(print())
@@ -115,6 +117,7 @@ class ParticipantControllerTest {
 
         //When
         mockMvc.perform(put(PARTICIPANTS_URI)
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(participantAsString))
                 .andDo(print())

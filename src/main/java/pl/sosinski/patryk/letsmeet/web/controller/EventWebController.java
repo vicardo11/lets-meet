@@ -20,6 +20,7 @@ import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 import pl.sosinski.patryk.letsmeet.web.model.request.EventRequestModel;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,7 +30,6 @@ import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVE
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANTS_ATTRIBUTE;
 
 @Controller
 @RequestMapping(value = EVENTS_URL)
@@ -67,7 +67,7 @@ public class EventWebController {
     public String createView(ModelMap modelMap) {
         LOGGER.info("createView()");
 
-        loadAttributesForAddingNewEvent(modelMap);
+        loadCategoriesForAddingNewEvent(modelMap);
         modelMap.addAttribute(EVENT_ATTRIBUTE, new EventRequestModel());
 
         return ADD_EVENT_VIEW;
@@ -75,14 +75,19 @@ public class EventWebController {
 
     @PostMapping
     public String create(@Valid @ModelAttribute(name = "event") EventRequestModel eventRequestModel,
-                         BindingResult bindingResult, ModelMap modelMap)
+                         BindingResult bindingResult, ModelMap modelMap, Principal principal)
             throws EventCategoryNotFoundException, ParticipantNotFoundException {
         LOGGER.info("create(" + eventRequestModel + ")");
 
         if (bindingResult.hasErrors()) {
-            loadAttributesForAddingNewEvent(modelMap);
+            loadCategoriesForAddingNewEvent(modelMap);
             return ADD_EVENT_VIEW;
         }
+
+        String email = principal.getName();
+
+        ParticipantModel participantModel = participantService.findByEmail(email);
+        eventRequestModel.setHostId(String.valueOf(participantModel.getId()));
 
         EventModel eventModel = eventManagerService.create(eventRequestModel);
 
@@ -130,11 +135,9 @@ public class EventWebController {
         return "redirect:" + EVENTS_URL;
     }
 
-    private void loadAttributesForAddingNewEvent(ModelMap modelMap) {
-        List<ParticipantModel> participants = participantService.list();
+    private void loadCategoriesForAddingNewEvent(ModelMap modelMap) {
         List<EventCategoryModel> categories = eventCategoryService.list();
 
-        modelMap.addAttribute(PARTICIPANTS_ATTRIBUTE, participants);
         modelMap.addAttribute(EVENT_CATEGORIES_ATTRIBUTE, categories);
     }
 

@@ -24,7 +24,6 @@ import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVE
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
-import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANTS_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.SEARCH_EVENT_BY_CATEGORY_URL;
 
 @SpringBootTest
@@ -115,20 +114,6 @@ class EventWebControllerTest {
         mockMvc.perform(get(ADD_EVENT_URL))
                 .andDo(print())
                 .andExpect(view().name(ADD_EVENT_VIEW))
-                .andExpect(status().isOk());
-
-        //Then
-    }
-
-    @Test
-    @WithMockUser(username = "user")
-    void givenAddEventUrl_whenGet_thenParticipantsAttributeExists() throws Exception {
-        //Given
-
-        //When
-        mockMvc.perform(get(ADD_EVENT_URL))
-                .andDo(print())
-                .andExpect(model().attributeExists(PARTICIPANTS_ATTRIBUTE))
                 .andExpect(status().isOk());
 
         //Then

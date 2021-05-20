@@ -98,4 +98,11 @@ public class ParticipantService {
     private boolean emailExists(String email) {
         return participantRepository.findByEmail(email) != null;
     }
+
+    public ParticipantModel findByEmail(String email) {
+        ParticipantEntity participantEntity = participantRepository.findByEmail(email);
+        ParticipantModel participantModel = participantMapper.from(participantEntity);
+
+        return participantModel;
+    }
 }

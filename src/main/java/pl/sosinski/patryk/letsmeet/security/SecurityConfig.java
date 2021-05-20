@@ -13,12 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private final DataSource dataSource;
-//
-//    public SecurityConfig(DataSource dataSource) {
-//        this.dataSource = dataSource;
-//    }
-
     private final LetsMeetUserDetailsService letsMeetUserDetailsService;
 
     public SecurityConfig(LetsMeetUserDetailsService letsMeetUserDetailsService) {
@@ -53,8 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticated()
                 .and()
                     .formLogin()
-//                    .loginPage("Widok z templates")
+                    .loginPage("/login")
                     .permitAll();
-
     }
+
+
 }

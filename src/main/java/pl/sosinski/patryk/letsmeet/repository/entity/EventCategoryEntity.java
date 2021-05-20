@@ -14,7 +14,7 @@ public class EventCategoryEntity {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "categories")
     private Set<EventEntity> events = new HashSet<>();
 
     public EventCategoryEntity() {

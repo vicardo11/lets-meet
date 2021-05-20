@@ -14,7 +14,7 @@ import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.PARTICIPANTS_URI;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANTS_URI;
 
 @RestController
 @RequestMapping(value = PARTICIPANTS_URI)

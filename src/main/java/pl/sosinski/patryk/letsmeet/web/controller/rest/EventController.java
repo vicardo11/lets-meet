@@ -17,7 +17,7 @@ import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static pl.sosinski.patryk.letsmeet.web.controller.rest.ControllerConstants.EVENTS_URI;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_URI;
 
 @RestController
 @RequestMapping(value = EVENTS_URI)

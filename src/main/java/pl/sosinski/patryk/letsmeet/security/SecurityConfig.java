@@ -34,12 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(letsMeetUserDetailsService)
-//                .jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery(
-//                        "SELECT email, password, 'true' AS enabled FROM participants where email=?")
-//                .authoritiesByUsernameQuery(
-//                        "SELECT email, 'ROLE_USER' FROM participants where email=?")
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
@@ -51,12 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .authorizeRequests()
+                    .antMatchers("/webjars/**")
+                    .permitAll()
+                .and()
+                    .authorizeRequests()
                     .anyRequest()
                     .authenticated()
                 .and()
                     .formLogin()
 //                    .loginPage("Widok z templates")
-//                    .defaultSuccessUrl("/events", true)
                     .permitAll();
+
     }
 }

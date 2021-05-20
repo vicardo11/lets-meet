@@ -34,7 +34,7 @@ public class EventEntity {
             inverseJoinColumns = {@JoinColumn(name = "participant_id")})
     private Set<ParticipantEntity> participants = new HashSet<>();
 
-    @ManyToMany(mappedBy = "events")
+    @ManyToMany
     private Set<EventCategoryEntity> categories = new HashSet<>();
 
     @Column(name = "date_time")

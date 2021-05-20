@@ -27,6 +27,8 @@ public class ParticipantManagerService {
 
         participantModel.setEmail(participantRequestModel.getEmail());
         participantModel.setPassword(passwordEncoder.encode(participantRequestModel.getPassword()));
+        participantModel.setFirstName(participantRequestModel.getFirstName());
+        participantModel.setLastName(participantRequestModel.getLastName());
 
         ParticipantModel createdParticipantModel = participantService.registerNewParticipant(participantModel);
         LOGGER.info("create(...) = " + createdParticipantModel);

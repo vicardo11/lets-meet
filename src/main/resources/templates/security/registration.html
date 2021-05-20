@@ -19,6 +19,16 @@
                 <p style="color: red" th:if="${#fields.hasErrors('*{email}')}" th:errors="*{email}"></p>
             </div>
             <div class="form-group-row">
+                <label for="firstName" class="col-sm-2 col-form-label" th:text="#{participant.firstName.label}">firstName</label>
+                <input id="firstName" type="text" th:field="*{firstName}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('*{firstName}')}" th:errors="*{firstName}"></p>
+            </div>
+            <div class="form-group-row">
+                <label for="lastName" class="col-sm-2 col-form-label" th:text="#{participant.lastName.label}">lastName</label>
+                <input id="lastName" type="text" th:field="*{lastName}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('*{lastName}')}" th:errors="*{lastName}"></p>
+            </div>
+            <div class="form-group-row">
                 <label for="password" class="col-sm-2 col-form-label" th:text="#{participant.password.label}">password</label>
                 <input id="password" type="password" th:field="*{password}"/>
                 <p style="color: red" th:if="${#fields.hasErrors('*{password}')}" th:errors="*{password}"></p>

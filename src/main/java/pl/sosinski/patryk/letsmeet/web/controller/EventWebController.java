@@ -74,11 +74,12 @@ public class EventWebController {
     }
 
     @PostMapping
-    public String create(@Valid @ModelAttribute(name = "event") EventRequestModel eventRequestModel, BindingResult bindingResult, ModelMap modelMap)
+    public String create(@Valid @ModelAttribute(name = "event") EventRequestModel eventRequestModel,
+                         BindingResult bindingResult, ModelMap modelMap)
             throws EventCategoryNotFoundException, ParticipantNotFoundException {
         LOGGER.info("create(" + eventRequestModel + ")");
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             loadAttributesForAddingNewEvent(modelMap);
             return ADD_EVENT_VIEW;
         }
@@ -106,7 +107,7 @@ public class EventWebController {
     }
 
     @GetMapping("/by-name")
-    public String listByEventName(@RequestParam("eventName") String eventName, ModelMap modelMap) throws EventCategoryNotFoundException {
+    public String listByEventName(@RequestParam("eventName") String eventName, ModelMap modelMap) {
         LOGGER.info("listByEventName()");
 
         List<EventModel> events = eventService.listByEventName(eventName);

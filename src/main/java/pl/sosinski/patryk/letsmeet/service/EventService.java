@@ -69,6 +69,17 @@ public class EventService {
         return eventModelsByParticipant;
     }
 
+    public List<EventModel> listByHost(ParticipantModel participantModel) {
+        LOGGER.info("listByHost(" + participantModel + ")");
+
+        List<Long> ids = List.of(participantModel.getId());
+        List<EventEntity> eventEntitiesByHost = eventRepository.findAllByHostIdInOrderByDateTime(ids);
+        List<EventModel> eventModelsByParticipant = eventMapper.fromEntities(eventEntitiesByHost);
+
+        LOGGER.info("listByHost(...) = " + eventModelsByParticipant);
+        return eventModelsByParticipant;
+    }
+
     public EventModel create(EventModel eventModel) {
         LOGGER.info("create(" + eventModel + ")");
 

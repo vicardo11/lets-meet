@@ -11,5 +11,5 @@ public interface EventRepository extends JpaRepository<EventEntity, Long> {
     List<EventEntity> findByNameContainsIgnoreCaseOrderByDateTime(String eventName);
     List<EventEntity> findAllByOrderByDateTime();
     List<EventEntity> findAllByParticipantsIdInOrderByDateTime(List<Long> ids);
-
+    List<EventEntity> findAllByHostIdInOrderByDateTime(List<Long> ids);
 }

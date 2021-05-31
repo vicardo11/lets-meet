@@ -109,4 +109,25 @@ class EventServiceTest {
         //Then
         assertEquals(0, eventModels.size(), "EventModels isn't equal to 0");
     }
+
+    @Test
+    void givenEventModelAndService_whenListByHost_thenFoundOneEvent() {
+        //Given
+        EventModel eventModel = EventModel.builder()
+                .name(EVENT_NAME_JAVA_SZKOLENIE)
+                .build();
+
+        ParticipantEntity participantEntity = new ParticipantEntity();
+        participantEntity.setFirstName(PARTICIPANT_NAME_PATRYK);
+
+        //When
+        ParticipantEntity savedParticipantEntity = participantRepository.save(participantEntity);
+        ParticipantModel savedParticipantModel = participantMapper.from(savedParticipantEntity);
+        eventModel.setHost(savedParticipantModel);
+        eventService.create(eventModel);
+        List<EventModel> eventModels = eventService.listByHost(savedParticipantModel);
+
+        //Then
+        assertEquals(1, eventModels.size(), "EventModels isn't equal to 1");
+    }
 }

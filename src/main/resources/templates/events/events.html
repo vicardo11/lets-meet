@@ -44,8 +44,14 @@
             </div>
 
             <div class="col-sm-auto">
-                <form th:action="@{/events/my-events}">
+                <form th:action="@{/events/participated-events}">
                     <input class="btn btn-primary" type="submit" value="Participated events"/>
+                </form>
+            </div>
+
+            <div class="col-sm-auto">
+                <form th:action="@{/events/hosted-events}">
+                    <input class="btn btn-primary" type="submit" value="Hosted events"/>
                 </form>
             </div>
         </div>

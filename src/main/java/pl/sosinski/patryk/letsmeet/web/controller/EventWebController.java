@@ -31,6 +31,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVE
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.HOSTED_EVENTS_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.MY_EVENTS_URL;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANT_EVENTS_VIEW;
 
@@ -126,7 +127,7 @@ public class EventWebController {
         return EVENTS_VIEW;
     }
 
-    @GetMapping("/my-events")
+    @GetMapping("/participated-events")
     public String eventsOfLoggedUser(Principal principal, ModelMap modelMap) {
         LOGGER.info("eventsOfLoggedUser()");
 
@@ -138,6 +139,20 @@ public class EventWebController {
 
         LOGGER.info("eventsOfLoggedUser() = " + events);
         return PARTICIPANT_EVENTS_VIEW;
+    }
+
+    @GetMapping("/hosted-events")
+    public String eventsHostedByLoggedUser(Principal principal, ModelMap modelMap) {
+        LOGGER.info("eventsHostedByLoggedUser()");
+
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        List<EventModel> events = eventService.listByHost(participantModel);
+
+        modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
+
+        LOGGER.info("eventsHostedByLoggedUser() = " + events);
+        return HOSTED_EVENTS_VIEW;
     }
 
     @GetMapping("/resign")

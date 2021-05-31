@@ -10,7 +10,7 @@ public class ControllerConstants {
     public static final String PARTICIPANTS_URI = API_URI + "/participants";
 
     public static final String EVENTS_URL = "/events";
-    public static final String MY_EVENTS_URL = EVENTS_URL + "/my-events";
+    public static final String MY_EVENTS_URL = EVENTS_URL + "/participated-events";
     public static final String ADD_EVENT_URL = EVENTS_URL + "/add";
     public static final String SEARCH_EVENT_BY_CATEGORY_URL = EVENTS_URL + "/by-category";
     public static final String LOGIN_URL = "/loginPage";
@@ -20,6 +20,7 @@ public class ControllerConstants {
 
     public static final String EVENTS_VIEW = "/events/events";
     public static final String PARTICIPANT_EVENTS_VIEW = "/events/participant-events";
+    public static final String HOSTED_EVENTS_VIEW = "/events/hosted-events";
     public static final String ADD_EVENT_VIEW = "/events/add-event";
     public static final String LOGIN_VIEW = "/security/login";
     public static final String REGISTRATION_VIEW = "/security/registration";

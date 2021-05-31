@@ -8,6 +8,7 @@ import pl.sosinski.patryk.letsmeet.service.mapper.EventMapper;
 import pl.sosinski.patryk.letsmeet.service.mapper.EventCategoryMapper;
 import pl.sosinski.patryk.letsmeet.web.model.EventModel;
 import pl.sosinski.patryk.letsmeet.web.model.EventCategoryModel;
+import pl.sosinski.patryk.letsmeet.web.model.ParticipantModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +56,17 @@ public class EventService {
 
         LOGGER.info("listByEventName(...) = " + eventModelsByName);
         return eventModelsByName;
+    }
+
+    public List<EventModel> listByParticipant(ParticipantModel participantModel) {
+        LOGGER.info("listByParticipant(" + participantModel + ")");
+
+        List<Long> ids = List.of(participantModel.getId());
+        List<EventEntity> eventEntitiesByParticipant = eventRepository.findAllByParticipantsIdInOrderByDateTime(ids);
+        List<EventModel> eventModelsByParticipant = eventMapper.fromEntities(eventEntitiesByParticipant);
+
+        LOGGER.info("listByParticipant(...) = " + eventModelsByParticipant);
+        return eventModelsByParticipant;
     }
 
     public EventModel create(EventModel eventModel) {

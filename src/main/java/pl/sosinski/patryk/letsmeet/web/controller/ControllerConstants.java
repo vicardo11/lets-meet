@@ -18,6 +18,7 @@ public class ControllerConstants {
     public static final String PARTICIPANTS_REGISTRATION_URL = PARTICIPANTS_URL + REGISTRATION_URL;
 
     public static final String EVENTS_VIEW = "/events/events";
+    public static final String PARTICIPANT_EVENTS_VIEW = "/events/participant-events";
     public static final String ADD_EVENT_VIEW = "/events/add-event";
     public static final String LOGIN_VIEW = "/security/login";
     public static final String REGISTRATION_VIEW = "/security/registration";

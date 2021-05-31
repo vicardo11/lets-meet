@@ -8,8 +8,8 @@
 </head>
 <body>
 <div style="margin: 25px">
-    <h1 style="text-align: center; margin: 25px">Events list</h1>
-    <div >
+    <h1 style="text-align: center; margin: 25px">Events you are signed for</h1>
+    <div>
         <form th:action="@{/logout}" method="post">
             <input class="btn btn-primary" type="submit" th:value="Logout">
         </form>
@@ -17,37 +17,11 @@
 
     <!------------------------------Buttons---------------------------------------->
     <div class="container">
-        <div class="row">
-            <div class="col-sm-auto">
-                <form action="#" th:action="@{/events/by-category}" method="GET">
-                    <label for="eventCategory" th:text="#{events.eventCategory.label}"></label>
-                    <select id="eventCategory" th:name="eventCategoryId">
-                        <option th:each="category : ${categories}" th:text="${category.name}"
-                                th:value="${category.id}"></option>
-                    </select>
-                    <button class="btn btn-primary" type="submit">Find</button>
-                </form>
-            </div>
 
-            <div class="col-sm-auto">
-                <form action="#" th:action="@{/events/by-name}" method="GET">
-                    <label for="eventName" th:text="#{events.eventName.label}"></label>
-                    <input type="text" id="eventName" th:name="eventName">
-                    <button class="btn btn-primary" type="submit">Find</button>
-                </form>
-            </div>
-
-            <div class="col-sm-auto">
-                <form th:action="@{/events}">
-                    <input class="btn btn-primary" type="submit" value="All events"/>
-                </form>
-            </div>
-
-            <div class="col-sm-auto">
-                <form th:action="@{/events/my-events}">
-                    <input class="btn btn-primary" type="submit" value="Participated events"/>
-                </form>
-            </div>
+        <div class="col-sm-auto">
+            <form th:action="@{/events}">
+                <input class="btn btn-primary" type="submit" value="All events"/>
+            </form>
         </div>
     </div>
 </div>
@@ -74,7 +48,7 @@
                 <td th:text="${event.host}"></td>
                 <td th:text="${event.getCategories()}"></td>
                 <td>
-                    <a class="btn btn-danger" th:text="Delete" th:href="@{/events/delete(eventId=${event.id})}"></a>
+                    <a class="btn btn-danger" th:text="Resign" th:href=""></a>
                 </td>
             </tr>
             </tbody>

@@ -30,6 +30,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVE
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANT_EVENTS_VIEW;
 
 @Controller
 @RequestMapping(value = EVENTS_URL)
@@ -84,9 +85,7 @@ public class EventWebController {
             return ADD_EVENT_VIEW;
         }
 
-        String email = principal.getName();
-
-        ParticipantModel participantModel = participantService.findByEmail(email);
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
         eventRequestModel.setHostId(String.valueOf(participantModel.getId()));
 
         EventModel eventModel = eventManagerService.create(eventRequestModel);
@@ -125,6 +124,20 @@ public class EventWebController {
         return EVENTS_VIEW;
     }
 
+    @GetMapping("/my-events")
+    public String eventsOfLoggedUser(Principal principal, ModelMap modelMap) {
+        LOGGER.info("eventsOfLoggedUser()");
+
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        List<EventModel> events = eventService.listByParticipant(participantModel);
+
+        modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
+
+        LOGGER.info("eventsOfLoggedUser() = " + events);
+        return PARTICIPANT_EVENTS_VIEW;
+    }
+
     @GetMapping("/delete")
     public String delete(@RequestParam("eventId") Long eventId) {
         LOGGER.info("delete(" + eventId + ")");
@@ -133,6 +146,11 @@ public class EventWebController {
 
         LOGGER.info("delete(...)");
         return "redirect:" + EVENTS_URL;
+    }
+
+    private ParticipantModel getLoggedParticipantModel(Principal principal) {
+        String email = principal.getName();
+        return participantService.findByEmail(email);
     }
 
     private void loadCategoriesForAddingNewEvent(ModelMap modelMap) {

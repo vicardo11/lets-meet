@@ -42,6 +42,18 @@
                     <input class="btn btn-primary" type="submit" value="All events"/>
                 </form>
             </div>
+
+            <div class="col-sm-auto">
+                <form th:action="@{/events/participated-events}">
+                    <input class="btn btn-primary" type="submit" value="Participated events"/>
+                </form>
+            </div>
+
+            <div class="col-sm-auto">
+                <form th:action="@{/events/hosted-events}">
+                    <input class="btn btn-primary" type="submit" value="Hosted events"/>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -57,7 +69,7 @@
                 <th scope="col">DateTime</th>
                 <th scope="col">Host</th>
                 <th scope="col">Categories</th>
-                <th scope="col">Delete</th>
+                <th scope="col">Join</th>
             </tr>
             </thead>
             <tbody>
@@ -68,7 +80,7 @@
                 <td th:text="${event.host}"></td>
                 <td th:text="${event.getCategories()}"></td>
                 <td>
-                    <a class="btn btn-danger" th:text="Delete" th:href="@{/events/delete(eventId=${event.id})}"></a>
+                    <a class="btn btn-success" th:text="Join" th:href="@{/events/join(eventId=${event.id})}"></a>
                 </td>
             </tr>
             </tbody>

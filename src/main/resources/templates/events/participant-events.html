@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Participated events</title>
+    <!-- CSS only -->
+    <link rel='stylesheet' type="text/css" href='/webjars/bootstrap/css/bootstrap.min.css'>
+</head>
+<body>
+<div style="margin: 25px">
+    <h1 style="text-align: center; margin: 25px">Events you are signed for</h1>
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input class="btn btn-primary" type="submit" th:value="Logout">
+        </form>
+    </div>
+
+    <!------------------------------Buttons---------------------------------------->
+    <div class="container">
+
+        <div class="col-sm-auto">
+            <form th:action="@{/events}">
+                <input class="btn btn-primary" type="submit" value="All events"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!------------------------------Table---------------------------------------->
+<div style="margin: 50px">
+    <div class="container-fluid">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Event name</th>
+                <th scope="col">Url</th>
+                <th scope="col">DateTime</th>
+                <th scope="col">Host</th>
+                <th scope="col">Categories</th>
+                <th scope="col">Resign</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="event : ${events}">
+                <td th:text="${event.name}"></td>
+                <td th:text="${event.url}"></td>
+                <td th:text="${#temporals.format(event.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${event.host}"></td>
+                <td th:text="${event.getCategories()}"></td>
+                <td>
+                    <a class="btn btn-danger" th:text="Resign" th:href="@{/events/resign(eventId=${event.id})}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!------------------------------Add new event---------------------------------------->
+
+    <div>
+        <form th:action="@{/events/add}">
+            <input class="btn btn-primary" type="submit" value="Add new event"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sosinski.patryk.letsmeet.core.exception.EventCategoryNotFoundException;
+import pl.sosinski.patryk.letsmeet.core.exception.EventNotFoundException;
 import pl.sosinski.patryk.letsmeet.core.exception.ParticipantNotFoundException;
 import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.service.EventManagerService;
@@ -30,6 +31,9 @@ import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVE
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.HOSTED_EVENTS_VIEW;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.MY_EVENTS_URL;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANT_EVENTS_VIEW;
 
 @Controller
 @RequestMapping(value = EVENTS_URL)
@@ -84,9 +88,7 @@ public class EventWebController {
             return ADD_EVENT_VIEW;
         }
 
-        String email = principal.getName();
-
-        ParticipantModel participantModel = participantService.findByEmail(email);
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
         eventRequestModel.setHostId(String.valueOf(participantModel.getId()));
 
         EventModel eventModel = eventManagerService.create(eventRequestModel);
@@ -125,6 +127,64 @@ public class EventWebController {
         return EVENTS_VIEW;
     }
 
+    @GetMapping("/participated-events")
+    public String eventsOfLoggedUser(Principal principal, ModelMap modelMap) {
+        LOGGER.info("eventsOfLoggedUser()");
+
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        List<EventModel> events = eventService.listByParticipant(participantModel);
+
+        modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
+
+        LOGGER.info("eventsOfLoggedUser() = " + events);
+        return PARTICIPANT_EVENTS_VIEW;
+    }
+
+    @GetMapping("/hosted-events")
+    public String eventsHostedByLoggedUser(Principal principal, ModelMap modelMap) {
+        LOGGER.info("eventsHostedByLoggedUser()");
+
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        List<EventModel> events = eventService.listByHost(participantModel);
+
+        modelMap.addAttribute(EVENTS_ATTRIBUTE, events);
+
+        LOGGER.info("eventsHostedByLoggedUser() = " + events);
+        return HOSTED_EVENTS_VIEW;
+    }
+
+    @GetMapping("/resign")
+    public String resignFromEvent(@RequestParam("eventId") Long eventId, Principal principal) throws EventNotFoundException {
+        LOGGER.info("resignFromEvent(" + eventId + ")");
+
+        EventModel eventModel = eventService.read(eventId);
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        eventModel.removeParticipant(participantModel);
+        eventService.update(eventModel);
+        participantService.update(participantModel);
+
+        LOGGER.info("resignFromEvent(...)");
+        return "redirect:" + MY_EVENTS_URL;
+    }
+
+    @GetMapping("/join")
+    public String joinEvent(@RequestParam("eventId") Long eventId, Principal principal) throws EventNotFoundException {
+        LOGGER.info("joinEvent(" + eventId + ")");
+
+        EventModel eventModel = eventService.read(eventId);
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        eventModel.addParticipant(participantModel);
+        eventService.update(eventModel);
+        participantService.update(participantModel);
+
+        LOGGER.info("joinEvent(...)");
+        return "redirect:" + MY_EVENTS_URL;
+    }
+
     @GetMapping("/delete")
     public String delete(@RequestParam("eventId") Long eventId) {
         LOGGER.info("delete(" + eventId + ")");
@@ -133,6 +193,11 @@ public class EventWebController {
 
         LOGGER.info("delete(...)");
         return "redirect:" + EVENTS_URL;
+    }
+
+    private ParticipantModel getLoggedParticipantModel(Principal principal) {
+        String email = principal.getName();
+        return participantService.findByEmail(email);
     }
 
     private void loadCategoriesForAddingNewEvent(ModelMap modelMap) {

@@ -37,4 +37,9 @@ public class EventModel {
     public void addEventCategory(EventCategoryModel eventCategory) {
         categories.add(eventCategory);
     }
+
+    public void removeParticipant(ParticipantModel participantModel) {
+        participants.remove(participantModel);
+        participantModel.removeParticipatedEvent(this);
+    }
 }

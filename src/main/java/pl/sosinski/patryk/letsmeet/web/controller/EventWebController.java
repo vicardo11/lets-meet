@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sosinski.patryk.letsmeet.core.exception.EventCategoryNotFoundException;
+import pl.sosinski.patryk.letsmeet.core.exception.EventNotFoundException;
 import pl.sosinski.patryk.letsmeet.core.exception.ParticipantNotFoundException;
 import pl.sosinski.patryk.letsmeet.service.EventCategoryService;
 import pl.sosinski.patryk.letsmeet.service.EventManagerService;
@@ -30,6 +31,7 @@ import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVE
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENTS_VIEW;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_ATTRIBUTE;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.EVENT_CATEGORIES_ATTRIBUTE;
+import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.MY_EVENTS_URL;
 import static pl.sosinski.patryk.letsmeet.web.controller.ControllerConstants.PARTICIPANT_EVENTS_VIEW;
 
 @Controller
@@ -136,6 +138,21 @@ public class EventWebController {
 
         LOGGER.info("eventsOfLoggedUser() = " + events);
         return PARTICIPANT_EVENTS_VIEW;
+    }
+
+    @GetMapping("/resign")
+    public String resignFromEvent(@RequestParam("eventId") Long eventId, Principal principal) throws EventNotFoundException {
+        LOGGER.info("resignFromEvent(" + eventId + ")");
+
+        EventModel eventModel = eventService.read(eventId);
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        eventModel.removeParticipant(participantModel);
+        eventService.update(eventModel);
+        participantService.update(participantModel);
+
+        LOGGER.info("resignFromEvent(...)");
+        return "redirect:" + MY_EVENTS_URL;
     }
 
     @GetMapping("/delete")

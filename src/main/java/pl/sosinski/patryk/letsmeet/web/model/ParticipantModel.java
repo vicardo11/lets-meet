@@ -2,6 +2,7 @@ package pl.sosinski.patryk.letsmeet.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class ParticipantModel {
 
     private Long id;
@@ -24,12 +26,18 @@ public class ParticipantModel {
     private String email;
     private String password;
     @Singular
+    @EqualsAndHashCode.Exclude
     private final Set<EventModel> hostedEvents = new HashSet<>();
     @Singular
+    @EqualsAndHashCode.Exclude
     private final Set<EventModel> participatedEvents = new HashSet<>();
 
     @Override
     public String toString() {
         return firstName + " " + lastName;
+    }
+
+    public void removeParticipatedEvent(EventModel eventModel) {
+        participatedEvents.remove(eventModel);
     }
 }

@@ -48,7 +48,7 @@
                 <td th:text="${event.host}"></td>
                 <td th:text="${event.getCategories()}"></td>
                 <td>
-                    <a class="btn btn-danger" th:text="Resign" th:href=""></a>
+                    <a class="btn btn-danger" th:text="Resign" th:href="@{/events/resign(eventId=${event.id})}"></a>
                 </td>
             </tr>
             </tbody>

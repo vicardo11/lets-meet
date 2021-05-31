@@ -40,4 +40,8 @@ public class ParticipantModel {
     public void removeParticipatedEvent(EventModel eventModel) {
         participatedEvents.remove(eventModel);
     }
+
+    public void addParticipatedEvent(EventModel eventModel) {
+        participatedEvents.add(eventModel);
+    }
 }

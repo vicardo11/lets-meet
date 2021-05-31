@@ -42,4 +42,9 @@ public class EventModel {
         participants.remove(participantModel);
         participantModel.removeParticipatedEvent(this);
     }
+
+    public void addParticipant(ParticipantModel participantModel) {
+        participants.add(participantModel);
+        participantModel.addParticipatedEvent(this);
+    }
 }

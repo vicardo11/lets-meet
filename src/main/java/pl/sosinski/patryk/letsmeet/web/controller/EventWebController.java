@@ -155,6 +155,21 @@ public class EventWebController {
         return "redirect:" + MY_EVENTS_URL;
     }
 
+    @GetMapping("/join")
+    public String joinEvent(@RequestParam("eventId") Long eventId, Principal principal) throws EventNotFoundException {
+        LOGGER.info("joinEvent(" + eventId + ")");
+
+        EventModel eventModel = eventService.read(eventId);
+        ParticipantModel participantModel = getLoggedParticipantModel(principal);
+
+        eventModel.addParticipant(participantModel);
+        eventService.update(eventModel);
+        participantService.update(participantModel);
+
+        LOGGER.info("joinEvent(...)");
+        return "redirect:" + MY_EVENTS_URL;
+    }
+
     @GetMapping("/delete")
     public String delete(@RequestParam("eventId") Long eventId) {
         LOGGER.info("delete(" + eventId + ")");

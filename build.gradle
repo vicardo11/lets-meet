@@ -2,11 +2,21 @@ plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'application'
 }
 
 group = 'pl.sosinski.patryk.letsmeet'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+apply plugin : "java"
+ext {
+	javaMainClass = "pl.sosinski.patryk.letsmeet.LetsMeetApplication"
+}
+
+application {
+	mainClassName = javaMainClass
+}
 
 configurations {
 	compileOnly {

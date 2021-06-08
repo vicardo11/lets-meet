@@ -1,3 +1,4 @@
+
 # lets-meet
 
 **Project status: in progress**
@@ -27,6 +28,13 @@ During Covid-19 time a lot of areas of our lives moved to the internet. This app
 * Java
 * Spring MVC
 * Spring Data
+* Spring Security
 * Hibernate
 * JUnit
 * Mockito
+* Gradle
+
+## How to run application
+1. Make sure you are in the main folder of application
+2. Open Git Bash
+3. Use command: `./gradlew run`
